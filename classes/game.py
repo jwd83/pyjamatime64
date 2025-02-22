@@ -1,4 +1,5 @@
 from pyray import *
+from raylib import *
 import time
 
 
@@ -12,6 +13,12 @@ class Game:
         self.height = 360
         self.width = 640
         self.dt = 1 / 60
+        self.camera = Camera3D()
+        self.camera.position = Vector3(0.0, 10.0, 10.0)
+        self.camera.target = Vector3()
+        self.camera.up = Vector3(0.0, 1.0, 0.0)
+        self.camera.fovy = 45.0
+        self.camera.projection = CAMERA_PERSPECTIVE
 
     def draw_fps(self):
         draw_text(f"{int(self.fps)} FPS", 10, 10, 30, VIOLET)
@@ -31,13 +38,20 @@ class Game:
             if is_key_pressed(KeyboardKey.KEY_F11) or is_key_pressed(KeyboardKey.KEY_F):
                 toggle_fullscreen()
 
+            # start new frame
             begin_drawing()
             clear_background(WHITE)
+
+            # 3D
+            begin_mode_3d(self.camera)
+            draw_grid(10, 1.0)
+            end_mode_3d()
 
             # frame complete
             self.draw_fps()
             end_drawing()
 
+            # update time for next frame
             self.update_dt()
             self.update_fps()
 
