@@ -36,7 +36,8 @@ class Game:
 
             # Check for fullscreen toggle
             if is_key_pressed(KeyboardKey.KEY_F11) or is_key_pressed(KeyboardKey.KEY_F):
-                toggle_fullscreen()
+                # toggle_fullscreen()
+                toggle_borderless_windowed()
 
             # start new frame
             begin_drawing()
