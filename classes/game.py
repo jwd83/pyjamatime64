@@ -10,8 +10,8 @@ class Game:
         self.frame = 0
         self.time_start = time.time()
         self.last_frame = time.time()
-        self.height = 360
-        self.width = 640
+        self.height = 720
+        self.width = 1280
         self.dt = 1 / 60
         self.camera = Camera3D()
         self.camera.position = Vector3(0.0, 10.0, 10.0)
