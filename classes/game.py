@@ -3,6 +3,9 @@ import raylib as rl
 from pyray import *
 from raylib import *
 import time
+from .renderobject import RenderObject
+import random
+import math
 
 
 class Game:
@@ -22,7 +25,9 @@ class Game:
         self.camera.up = Vector3(0.0, 1.0, 0.0)
         self.camera.fovy = 45.0
         self.camera.projection = CAMERA_PERSPECTIVE
-        self.mesh = None
+        self.mesh_loaded = False
+        self.models: list[RenderObject] = []
+        self.background_color: Color = BLACK
 
     def draw_fps(self):
         draw_text(f"{int(self.fps)} FPS", 10, 10, 30, VIOLET)
@@ -38,20 +43,57 @@ class Game:
 
         # start new frame
         begin_drawing()
-        clear_background(WHITE)
+        clear_background(self.background_color)
+
+    def create_render_object(self):
+        pos_range = 4
+        cube_size = 0.5
+        x = random.randint(-pos_range, pos_range)
+        y = random.randint(-pos_range, pos_range)
+        z = random.randint(-pos_range, pos_range)
+        color = random.choice(
+            [
+                RED,
+                GREEN,
+                BLUE,
+                YELLOW,
+                ORANGE,
+                PURPLE,
+                PINK,
+                BROWN,
+                SKYBLUE,
+                LIME,
+                GOLD,
+                MAROON,
+            ]
+        )
+        mesh = gen_mesh_cube(cube_size, cube_size, cube_size)
+        model = load_model_from_mesh(mesh)
+        model_position = Vector3(x, y, z)
+        self.models.append(RenderObject(model, model_position, 1.0, color))
 
     def render_frame_3d(self):
         # start 3D
+
+        # rotate camera around the origin by time
+        self.camera.position.x = math.sin(time.time()) * 10
+        self.camera.position.z = math.cos(time.time()) * 10
+
+        # move the camera up and down verticall as well
+        self.camera.position.y = math.sin(time.time() * 0.5) * 10
+
         begin_mode_3d(self.camera)
 
-        if self.mesh == None:
-            self.mesh = gen_mesh_cube(1.0, 1.0, 1.0)
-            self.model = load_model_from_mesh(self.mesh)
-            self.model_position = Vector3(0.0, 0.0, 0.0)
+        if not self.mesh_loaded:
+            self.mesh_loaded = True
+            for j in range(400):
 
-        draw_model(self.model, self.model_position, 1.0, RED)
+                self.create_render_object()
 
-        draw_grid(10, 1.0)
+        for model in self.models:
+            model.draw()
+
+        # draw_grid(10, 1.0)
 
         # draw model
         # draw_model(self.model, self.model_position, 1.0, WHITE)
@@ -71,6 +113,8 @@ class Game:
 
     def run(self):
         init_window(self.width, self.height, "Hello")
+        # toggle_borderless_windowed()
+
         while not window_should_close():
 
             # Check for fullscreen toggle
@@ -81,6 +125,10 @@ class Game:
             self.start_frame()
             self.render_frame_3d()
             self.end_frame()
+
+            # remove the first model from the list of models and create a new one
+            self.models.pop(0)
+            self.create_render_object()
 
         close_window()
 
