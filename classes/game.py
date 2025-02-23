@@ -28,6 +28,15 @@ class Game:
         self.mesh_loaded = False
         self.models: list[RenderObject] = []
         self.background_color: Color = BLACK
+        init_window(self.width, self.height, "PyjamaTime64")
+        self.blank_frame()
+
+    def blank_frame(self):
+        begin_drawing()
+        clear_background(self.background_color)
+        begin_mode_3d(self.camera)
+        end_mode_3d()
+        end_drawing()
 
     def draw_fps(self):
         draw_text(f"{int(self.fps)} FPS", 10, 10, 30, VIOLET)
@@ -111,17 +120,18 @@ class Game:
         self.update_dt()
         self.update_fps()
 
+    def get_input(self):
+        # Check for fullscreen toggle
+        if is_key_pressed(KeyboardKey.KEY_F11) or is_key_pressed(KeyboardKey.KEY_F):
+            # toggle_fullscreen()
+            toggle_borderless_windowed()
+
     def run(self):
-        init_window(self.width, self.height, "Hello")
         # toggle_borderless_windowed()
 
         while not window_should_close():
 
-            # Check for fullscreen toggle
-            if is_key_pressed(KeyboardKey.KEY_F11) or is_key_pressed(KeyboardKey.KEY_F):
-                # toggle_fullscreen()
-                toggle_borderless_windowed()
-
+            self.get_input()
             self.start_frame()
             self.render_frame_3d()
             self.end_frame()
