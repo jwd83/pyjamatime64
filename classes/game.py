@@ -5,6 +5,7 @@ import time
 
 class Game:
     def __init__(self):
+        print(f"Game class initialized")
         self.fps = 0.0
         self.fps_update = 200
         self.frame = 0
@@ -19,6 +20,9 @@ class Game:
         self.camera.up = Vector3(0.0, 1.0, 0.0)
         self.camera.fovy = 45.0
         self.camera.projection = CAMERA_PERSPECTIVE
+        # self.mesh = gen_mesh_cube(1, 1, 1)
+        # self.model = load_model_from_mesh(self.mesh)
+        # self.model_position = Vector3(0.0, 0.0, 0.0)
 
     def draw_fps(self):
         draw_text(f"{int(self.fps)} FPS", 10, 10, 30, VIOLET)
@@ -37,9 +41,14 @@ class Game:
         clear_background(WHITE)
 
     def render_frame_3d(self):
-        # 3D
+        # start 3D
         begin_mode_3d(self.camera)
         draw_grid(10, 1.0)
+
+        # draw model
+        # draw_model(self.model, self.model_position, 1.0, WHITE)
+
+        # finish 3d
         end_mode_3d()
 
     def end_frame(self):
