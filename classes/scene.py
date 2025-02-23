@@ -5,7 +5,6 @@ import pyray as p
 class Scene:
 
     from .game import Game
-    from .renderobject import RenderObject
 
     def __init__(self, game: Game):
         self.game = game
