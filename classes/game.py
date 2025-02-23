@@ -30,6 +30,28 @@ class Game:
             self.fps = self.fps_update / (self.time_end - self.time_start)
             self.time_start = self.time_end
 
+    def start_frame(self):
+
+        # start new frame
+        begin_drawing()
+        clear_background(WHITE)
+
+    def render_frame_3d(self):
+        # 3D
+        begin_mode_3d(self.camera)
+        draw_grid(10, 1.0)
+        end_mode_3d()
+
+    def end_frame(self):
+
+        # frame complete
+        self.draw_fps()
+        end_drawing()
+
+        # update time for next frame
+        self.update_dt()
+        self.update_fps()
+
     def run(self):
         init_window(self.width, self.height, "Hello")
         while not window_should_close():
@@ -39,22 +61,9 @@ class Game:
                 # toggle_fullscreen()
                 toggle_borderless_windowed()
 
-            # start new frame
-            begin_drawing()
-            clear_background(WHITE)
-
-            # 3D
-            begin_mode_3d(self.camera)
-            draw_grid(10, 1.0)
-            end_mode_3d()
-
-            # frame complete
-            self.draw_fps()
-            end_drawing()
-
-            # update time for next frame
-            self.update_dt()
-            self.update_fps()
+            self.start_frame()
+            self.render_frame_3d()
+            self.end_frame()
 
         close_window()
 
