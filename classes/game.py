@@ -1,3 +1,5 @@
+import pyray as pr
+import raylib as rl
 from pyray import *
 from raylib import *
 import time
@@ -20,9 +22,7 @@ class Game:
         self.camera.up = Vector3(0.0, 1.0, 0.0)
         self.camera.fovy = 45.0
         self.camera.projection = CAMERA_PERSPECTIVE
-        # self.mesh = gen_mesh_cube(1, 1, 1)
-        # self.model = load_model_from_mesh(self.mesh)
-        # self.model_position = Vector3(0.0, 0.0, 0.0)
+        self.mesh = None
 
     def draw_fps(self):
         draw_text(f"{int(self.fps)} FPS", 10, 10, 30, VIOLET)
@@ -43,6 +43,14 @@ class Game:
     def render_frame_3d(self):
         # start 3D
         begin_mode_3d(self.camera)
+
+        if self.mesh == None:
+            self.mesh = gen_mesh_cube(1.0, 1.0, 1.0)
+            self.model = load_model_from_mesh(self.mesh)
+            self.model_position = Vector3(0.0, 0.0, 0.0)
+
+        draw_model(self.model, self.model_position, 1.0, RED)
+
         draw_grid(10, 1.0)
 
         # draw model
