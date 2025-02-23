@@ -79,7 +79,7 @@ class Game:
         self.camera.position.x = math.sin(time.time()) * 10
         self.camera.position.z = math.cos(time.time()) * 10
 
-        # move the camera up and down verticall as well
+        # move the camera up and down vertical as well
         self.camera.position.y = math.sin(time.time() * 0.5) * 10
 
         begin_mode_3d(self.camera)
