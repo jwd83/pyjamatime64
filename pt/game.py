@@ -1,7 +1,8 @@
 from pyray import *
 from raylib import *
 import time
-from scenes.cubedemo import CubeDemo
+
+# from scenes.cubedemo import CubeDemo
 
 # from scenes import *
 
@@ -21,6 +22,8 @@ class Game:
         self.dt = 1 / 60
         self.mesh_loaded = False
         self.prepare_window()
+        from scenes.cubedemo import CubeDemo
+
         self.scenes.append(CubeDemo(self))
         # self.scenes.append(CubeDemo(self))
         # self.ship = load_model(os.path.join("models", "ship.glb"))

@@ -1,6 +1,4 @@
-from pyray import *
-from pt.scene import Scene
-from pt.renderobject import RenderObject
+from pt import *
 import math
 import time
 import random

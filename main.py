@@ -1,8 +1,9 @@
-from pt import Game
 import time
+from pt import *
 
 
 def main():
+
     start_time = time.time()
     print(f"starting main:Game().run() at {start_time}")
     g = Game()
