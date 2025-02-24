@@ -6,9 +6,11 @@ import time
 from .renderobject import RenderObject
 import random
 import math
+import os
 
 
 class Game:
+
     def __init__(self):
         print(f"Game class initialized")
         self.fps = 0.0
@@ -19,14 +21,19 @@ class Game:
         self.height = 720
         self.width = 1280
         self.dt = 1 / 60
+        self.mesh_loaded = False
+        self.models: list[RenderObject] = []
+        self.prepare_window()
+        self.ship = load_model(os.path.join("models", "ship.glb"))
+        self.ship_position = Vector3(0, 0, 5)
+
+    def prepare_window(self):
         self.camera = Camera3D()
         self.camera.position = Vector3(0.0, 10.0, 10.0)
         self.camera.target = Vector3()
         self.camera.up = Vector3(0.0, 1.0, 0.0)
         self.camera.fovy = 45.0
         self.camera.projection = CAMERA_PERSPECTIVE
-        self.mesh_loaded = False
-        self.models: list[RenderObject] = []
         self.background_color: Color = BLACK
         init_window(self.width, self.height, "PyjamaTime64")
         self.blank_frame()
@@ -101,6 +108,16 @@ class Game:
 
         for model in self.models:
             model.draw()
+
+        # move the ship around the origin
+        self.ship_position.x = math.sin(time.time()) * 5
+        self.ship_position.z = math.cos(time.time()) * 5
+
+        # repoint the ship at the origin
+        self.ship.transform = MatrixRotateXYZ(Vector3(0, time.time(), 0))
+
+        # draw the ship
+        draw_model(self.ship, self.ship_position, 1.0, WHITE)
 
         # draw_grid(10, 1.0)
 
