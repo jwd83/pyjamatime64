@@ -1,9 +1,6 @@
 from pyray import *
 from raylib import *
 import time
-from .renderobject import RenderObject
-import math
-import os
 from scenes import *
 
 
@@ -21,7 +18,6 @@ class Game:
         self.width = 1280
         self.dt = 1 / 60
         self.mesh_loaded = False
-        self.models: list[RenderObject] = []
         self.prepare_window()
         self.scenes.append(CubeDemo(self))
         # self.ship = load_model(os.path.join("models", "ship.glb"))
