@@ -1,4 +1,4 @@
-from classes import Game
+from pt import Game
 import time
 
 

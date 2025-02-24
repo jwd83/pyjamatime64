@@ -1,8 +1,7 @@
 class Scene:
 
     def __init__(self, game):
-
-        from classes.game import Game
+        from pt.game import Game
 
         self.game: Game = game
 

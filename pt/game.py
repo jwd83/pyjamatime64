@@ -1,7 +1,9 @@
 from pyray import *
 from raylib import *
 import time
-from scenes import *
+from scenes.cubedemo import CubeDemo
+
+# from scenes import *
 
 
 class Game:
@@ -20,6 +22,7 @@ class Game:
         self.mesh_loaded = False
         self.prepare_window()
         self.scenes.append(CubeDemo(self))
+        # self.scenes.append(CubeDemo(self))
         # self.ship = load_model(os.path.join("models", "ship.glb"))
         # self.ship_position = Vector3(0, 0, 5)
 
@@ -50,27 +53,6 @@ class Game:
             self.time_end = time.time()
             self.fps = self.fps_update / (self.time_end - self.time_start)
             self.time_start = self.time_end
-
-    # def render_frame_3d(self):
-    # start 3D
-
-    # # move the ship around the origin
-    # self.ship_position.x = math.sin(time.time()) * 5
-    # self.ship_position.z = math.cos(time.time()) * 5
-
-    # # repoint the ship at the origin
-    # self.ship.transform = MatrixRotateXYZ(Vector3(0, time.time(), 0))
-
-    # # draw the ship
-    # draw_model(self.ship, self.ship_position, 1.0, WHITE)
-
-    # draw_grid(10, 1.0)
-
-    # draw model
-    # draw_model(self.model, self.model_position, 1.0, WHITE)
-
-    # finish 3d
-    # end_mode_3d()
 
     def end_frame(self):
 

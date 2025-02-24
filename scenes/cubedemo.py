@@ -1,15 +1,21 @@
-from classes import *
+from pt.scene import Scene
+from pt.renderobject import RenderObject
+
+# from pt import *
+# from pt import *
 import math
 import time
 import random
+from pyray import *
 
 
 class CubeDemo(Scene):
     def __init__(self, game):
         super().__init__(game)
+
         self.models = []
 
-        for j in range(400):
+        for _ in range(400):
 
             self.create_render_object()
 
