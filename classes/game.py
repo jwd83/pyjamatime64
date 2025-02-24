@@ -1,18 +1,17 @@
-import pyray as pr
-import raylib as rl
 from pyray import *
 from raylib import *
 import time
 from .renderobject import RenderObject
-import random
 import math
 import os
+from scenes import *
 
 
 class Game:
 
     def __init__(self):
         print(f"Game class initialized")
+        self.scenes = []
         self.fps = 0.0
         self.fps_update = 200
         self.frame = 0
@@ -24,8 +23,9 @@ class Game:
         self.mesh_loaded = False
         self.models: list[RenderObject] = []
         self.prepare_window()
-        self.ship = load_model(os.path.join("models", "ship.glb"))
-        self.ship_position = Vector3(0, 0, 5)
+        self.scenes.append(CubeDemo(self))
+        # self.ship = load_model(os.path.join("models", "ship.glb"))
+        # self.ship_position = Vector3(0, 0, 5)
 
     def prepare_window(self):
         self.camera = Camera3D()
@@ -55,77 +55,26 @@ class Game:
             self.fps = self.fps_update / (self.time_end - self.time_start)
             self.time_start = self.time_end
 
-    def start_frame(self):
+    # def render_frame_3d(self):
+    # start 3D
 
-        # start new frame
-        begin_drawing()
-        clear_background(self.background_color)
+    # # move the ship around the origin
+    # self.ship_position.x = math.sin(time.time()) * 5
+    # self.ship_position.z = math.cos(time.time()) * 5
 
-    def create_render_object(self):
-        pos_range = 4
-        cube_size = 0.5
-        x = random.randint(-pos_range, pos_range)
-        y = random.randint(-pos_range, pos_range)
-        z = random.randint(-pos_range, pos_range)
-        color = random.choice(
-            [
-                RED,
-                GREEN,
-                BLUE,
-                YELLOW,
-                ORANGE,
-                PURPLE,
-                PINK,
-                BROWN,
-                SKYBLUE,
-                LIME,
-                GOLD,
-                MAROON,
-            ]
-        )
-        mesh = gen_mesh_cube(cube_size, cube_size, cube_size)
-        model = load_model_from_mesh(mesh)
-        model_position = Vector3(x, y, z)
-        self.models.append(RenderObject(model, model_position, 1.0, color))
+    # # repoint the ship at the origin
+    # self.ship.transform = MatrixRotateXYZ(Vector3(0, time.time(), 0))
 
-    def render_frame_3d(self):
-        # start 3D
+    # # draw the ship
+    # draw_model(self.ship, self.ship_position, 1.0, WHITE)
 
-        # rotate camera around the origin by time
-        self.camera.position.x = math.sin(time.time()) * 10
-        self.camera.position.z = math.cos(time.time()) * 10
+    # draw_grid(10, 1.0)
 
-        # move the camera up and down vertical as well
-        self.camera.position.y = math.sin(time.time() * 0.5) * 10
+    # draw model
+    # draw_model(self.model, self.model_position, 1.0, WHITE)
 
-        begin_mode_3d(self.camera)
-
-        if not self.mesh_loaded:
-            self.mesh_loaded = True
-            for j in range(400):
-
-                self.create_render_object()
-
-        for model in self.models:
-            model.draw()
-
-        # move the ship around the origin
-        self.ship_position.x = math.sin(time.time()) * 5
-        self.ship_position.z = math.cos(time.time()) * 5
-
-        # repoint the ship at the origin
-        self.ship.transform = MatrixRotateXYZ(Vector3(0, time.time(), 0))
-
-        # draw the ship
-        draw_model(self.ship, self.ship_position, 1.0, WHITE)
-
-        # draw_grid(10, 1.0)
-
-        # draw model
-        # draw_model(self.model, self.model_position, 1.0, WHITE)
-
-        # finish 3d
-        end_mode_3d()
+    # finish 3d
+    # end_mode_3d()
 
     def end_frame(self):
 
@@ -143,19 +92,39 @@ class Game:
             # toggle_fullscreen()
             toggle_borderless_windowed()
 
+    def scenes_update(self):
+        for scene in self.scenes:
+            scene.update()
+
+    def scenes_draw_3d(self):
+        for scene in self.scenes:
+            scene.draw_3d()
+
+    def scenes_draw_2d(self):
+        for scene in self.scenes:
+            scene.draw_2d()
+
     def run(self):
         # toggle_borderless_windowed()
 
         while not window_should_close():
 
+            # process game-wide input
             self.get_input()
-            self.start_frame()
-            self.render_frame_3d()
-            self.end_frame()
 
-            # remove the first model from the list of models and create a new one
-            self.models.pop(0)
-            self.create_render_object()
+            # have all scenes process their updates
+            self.scenes_update()
+
+            # start new frame
+            begin_drawing()
+            clear_background(self.background_color)
+
+            begin_mode_3d(self.camera)
+            self.scenes_draw_3d()
+            end_mode_3d()
+
+            self.scenes_draw_2d()
+            self.end_frame()
 
         close_window()
 

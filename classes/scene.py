@@ -1,19 +1,19 @@
-# a render object holding a model and a position
-import pyray as p
-
-
 class Scene:
 
-    from .game import Game
+    def __init__(self, game):
 
-    def __init__(self, game: Game):
-        self.game = game
+        from classes.game import Game
+
+        self.game: Game = game
+
+    def top_scene(self) -> bool:
+        return self.game.scenes[-1] == self
+
+    def update(self):
+        pass
 
     def draw_3d(self):
         pass
 
     def draw_2d(self):
-        pass
-
-    def update(self):
         pass
