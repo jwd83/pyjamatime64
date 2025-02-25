@@ -21,6 +21,8 @@ class Game:
         self.width = 1280
         self.dt = 1 / 60
         self.mesh_loaded = False
+        self.camera = Camera3D()
+
         self.prepare_window()
         from scenes.cubedemo import CubeDemo
 
@@ -30,7 +32,6 @@ class Game:
         # self.ship_position = Vector3(0, 0, 5)
 
     def prepare_window(self):
-        self.camera = Camera3D()
         self.camera.position = Vector3(0.0, 10.0, 10.0)
         self.camera.target = Vector3()
         self.camera.up = Vector3(0.0, 1.0, 0.0)

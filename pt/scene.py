@@ -1,9 +1,11 @@
 class Scene:
 
-    def __init__(self, game):
-        from pt.game import Game
+    from pt.game import Game
 
-        self.game: Game = game
+    def __init__(self, game: Game):
+
+        self.game = game
+        self.camera = game.camera
 
     def top_scene(self) -> bool:
         return self.game.scenes[-1] == self

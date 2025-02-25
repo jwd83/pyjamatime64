@@ -5,6 +5,7 @@ import random
 
 
 class CubeDemo(Scene):
+
     def __init__(self, game):
         super().__init__(game)
 
@@ -20,11 +21,11 @@ class CubeDemo(Scene):
         self.create_render_object()
 
         # rotate camera around the origin by time
-        self.game.camera.position.x = math.sin(time.time()) * 10
-        self.game.camera.position.z = math.cos(time.time()) * 10
+        self.camera.position.x = math.sin(time.time()) * 10
+        self.camera.position.z = math.cos(time.time()) * 10
 
         # move the camera up and down vertical as well
-        self.game.camera.position.y = math.sin(time.time() * 0.5) * 10
+        self.camera.position.y = math.sin(time.time() * 0.5) * 10
 
     def draw_3d(self):
 
