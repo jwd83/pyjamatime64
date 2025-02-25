@@ -9,9 +9,11 @@ import time
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, settings):
         print(f"Game class initialized")
+        self.quit = False
         self.scenes = []
+        self.settings = settings
         self.fps = 0.0
         self.fps_update = 200
         self.frame = 0
@@ -21,15 +23,25 @@ class Game:
         self.width = 1280
         self.dt = 1 / 60
         self.mesh_loaded = False
+        self.background_color: Color = BLACK
         self.camera = Camera3D()
-
         self.prepare_window()
-        from scenes.cubedemo import CubeDemo
+        self.load_scene("CubeDemo")
 
-        self.scenes.append(CubeDemo(self))
-        # self.scenes.append(CubeDemo(self))
-        # self.ship = load_model(os.path.join("models", "ship.glb"))
-        # self.ship_position = Vector3(0, 0, 5)
+    def load_scene(self, scene: str, unload_existing=True):
+        import scenes
+
+        if unload_existing:
+            self.scenes = []
+
+            # check that the provided scene is a valid scene
+            # if not hasattr(scenes, scene):
+        new_scene = eval(f"scenes.{scene}(self)")
+        self.scenes.append(new_scene)
+        # else:
+
+        #     print(f"Scene {scene} not found")
+        #     self.quit = True
 
     def prepare_window(self):
         self.camera.position = Vector3(0.0, 10.0, 10.0)
@@ -37,7 +49,6 @@ class Game:
         self.camera.up = Vector3(0.0, 1.0, 0.0)
         self.camera.fovy = 45.0
         self.camera.projection = CAMERA_PERSPECTIVE
-        self.background_color: Color = BLACK
         init_window(self.width, self.height, "PyjamaTime64")
         self.blank_frame()
 

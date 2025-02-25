@@ -1,12 +1,18 @@
 import time
 from pt import *
 
+import json
+
 
 def main():
+    print("Loading settings.json")
+    with open("settings.json") as f:
+        settings = json.load(f)
+    print("settings loaded")
 
     start_time = time.time()
     print(f"starting main:Game().run() at {start_time}")
-    g = Game()
+    g = Game(settings)
     g.run()
     end_time = time.time()
     print(f"finished main:Game().run() at {end_time}")
