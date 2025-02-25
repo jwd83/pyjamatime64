@@ -31,17 +31,21 @@ class Game:
     def load_scene(self, scene: str, unload_existing=True):
         import scenes
 
+        # list all classes in the scenes module
+        # print("SCENES MODULE DIR:")
+
         if unload_existing:
             self.scenes = []
 
             # check that the provided scene is a valid scene
             # if not hasattr(scenes, scene):
-        new_scene = eval(f"scenes.{scene}(self)")
-        self.scenes.append(new_scene)
-        # else:
+        if scene in dir(scenes):
+            new_scene = eval(f"scenes.{scene}(self)")
+            self.scenes.append(new_scene)
+        else:
 
-        #     print(f"Scene {scene} not found")
-        #     self.quit = True
+            print(f"Scene {scene} not found")
+            self.quit = True
 
     def prepare_window(self):
         self.camera.position = Vector3(0.0, 10.0, 10.0)
@@ -100,7 +104,7 @@ class Game:
     def run(self):
         # toggle_borderless_windowed()
 
-        while not window_should_close():
+        while not self.quit:
 
             # process game-wide input
             self.get_input()
@@ -118,6 +122,10 @@ class Game:
 
             self.scenes_draw_2d()
             self.end_frame()
+
+            if window_should_close():
+                print("window_should_close() reported True")
+                self.quit = True
 
         close_window()
 
