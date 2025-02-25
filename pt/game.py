@@ -26,7 +26,7 @@ class Game:
         self.background_color: Color = BLACK
         self.camera = Camera3D()
         self.prepare_window()
-        self.load_scene("CubeDemo")
+        self.load_scene(self.settings["startup-scene"])
 
     def load_scene(self, scene: str, unload_existing=True):
         import scenes
