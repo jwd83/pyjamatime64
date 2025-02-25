@@ -1,4 +1,5 @@
 from pt import *
+import raylib as rl
 import math
 import time
 import os
@@ -21,6 +22,18 @@ class ShipDemo(Scene):
         self.camera.target = Vector3()  # defaults to 0,0,0
 
     def update(self):
+
+        # if a key 0 through 9 is pressed set the scale to that number
+        if is_key_pressed(rl.KEY_ONE):
+            self.ship_scale = 1.0
+        if is_key_pressed(rl.KEY_TWO):
+            self.ship_scale = 2.0
+        if is_key_pressed(rl.KEY_THREE):
+            self.ship_color = WHITE
+        if is_key_pressed(rl.KEY_FOUR):
+            self.ship_color = RED
+        if is_key_pressed(rl.KEY_FIVE):
+            self.ship_color = GREEN
 
         # rotate camera around the origin by time
         self.camera.position.x = math.sin(time.time()) * 10
