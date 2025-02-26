@@ -1,3 +1,4 @@
+# from stackoverflow to process sloan data as an example for a histogram
 import astropy.cosmology
 from scipy.stats.kde import gaussian_kde
 import astropy.coordinates
