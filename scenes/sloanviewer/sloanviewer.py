@@ -36,3 +36,8 @@ plt.clf()
 plt.figure(figsize=(8, 6))
 plt.gca().set_aspect("equal")
 plt.imshow(heatmap.T, extent=extent, origin="lower", cmap=plt.get_cmap("nipy_spectral"))
+
+
+# save image to disk
+plt.savefig("sloanviewer.png")
+plt.show()
