@@ -51,7 +51,8 @@ def main():
                     "cx": c.cartesian.x.value,
                     "cy": c.cartesian.y.value,
                     "cz": c.cartesian.z.value,
-                    "distance": distance,
+                    "distance (mPc)": distance,
+                    "distance (ly)": distance * 3.262e6,
                 }
 
                 if writer is None:
