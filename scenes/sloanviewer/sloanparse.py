@@ -10,7 +10,7 @@ import numpy as np
 
 def main():
     path = "sloandata2.csv"
-    path_out = "sloandata2_out.csv"
+    path_out = "sloandata2_out_clean.csv"
     writer = None
     with open(path, "r") as file:
         reader = DictReader(file)
@@ -22,6 +22,10 @@ def main():
                 ra = row["ra"]
                 dec = row["dec"]
                 z = row["z"]
+
+                if float(z) == 0:
+                    print("Skipping row with redshift (z)=0")
+                    continue
 
                 # convert to cartesian coordinates
                 # comoving distance
