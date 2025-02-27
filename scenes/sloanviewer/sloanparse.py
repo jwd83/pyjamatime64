@@ -17,12 +17,7 @@ def main():
 
         with open(path_out, "w") as file_out:
 
-            # display the first 10 rows
-
             for i, row in enumerate(reader):
-
-                # if i == 10:
-                #     break
 
                 ra = row["ra"]
                 dec = row["dec"]
