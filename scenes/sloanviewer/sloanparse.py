@@ -9,8 +9,8 @@ import numpy as np
 
 
 def main():
-    path = "sloandata.csv"
-    path_out = "sloandata_out.csv"
+    path = "sloandata2.csv"
+    path_out = "sloandata2_out.csv"
     writer = None
     with open(path, "r") as file:
         reader = DictReader(file)
