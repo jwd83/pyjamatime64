@@ -63,7 +63,7 @@ def main():
                 writer.writerow(row_out)
 
     # write to new file
-    print(f"Skipped {skipped} rows")
+    print(f"Skipped {skipped} rows where z was 0")
 
 
 if __name__ == "__main__":
