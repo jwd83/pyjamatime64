@@ -12,6 +12,7 @@ def main():
     path = "sloandata2.csv"
     path_out = "sloandata2_out_clean.csv"
     writer = None
+    skipped = 0
     with open(path, "r") as file:
         reader = DictReader(file)
 
@@ -24,7 +25,8 @@ def main():
                 z = row["z"]
 
                 if float(z) == 0:
-                    print("Skipping row with redshift (z)=0")
+                    skipped += 1
+                    # print("Skipping row with redshift (z)=0")
                     continue
 
                 # convert to cartesian coordinates
@@ -60,7 +62,8 @@ def main():
 
                 writer.writerow(row_out)
 
-            # write to new file
+    # write to new file
+    print(f"Skipped {skipped} rows")
 
 
 if __name__ == "__main__":
