@@ -4,3 +4,6 @@ A 3D python game engine built with Raylib
 ### Game
 ### Scene
 ### RenderObject
+# Scenes
+## SloanViewer
+* Make ways to color stars.
