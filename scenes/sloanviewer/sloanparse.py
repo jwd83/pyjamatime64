@@ -1,3 +1,9 @@
+# HEY YOU
+# HEY YOU
+# remember to remove the # comment from the CSV first line
+# HEY YOU
+# HEY YOU
+
 from csv import DictReader, DictWriter
 
 # open sloandata.csv, grab headers from first row
@@ -9,14 +15,14 @@ import numpy as np
 
 
 def main():
-    path = "sloandata2.csv"
-    path_out = "sloandata2_out_clean.csv"
+    path = "sloan-nearby-redshift.csv"
+    path_out = "sloan-nearby-redshift-out.csv"
     writer = None
     skipped = 0
     with open(path, "r") as file:
         reader = DictReader(file)
 
-        with open(path_out, "w") as file_out:
+        with open(path_out, "w", newline='') as file_out:
 
             for i, row in enumerate(reader):
 
