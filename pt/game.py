@@ -77,11 +77,20 @@ class Game:
 
         # frame complete
         self.draw_fps()
+        self.draw_debug()
+
         end_drawing()
 
         # update time for next frame
         self.update_dt()
         self.update_fps()
+
+    def draw_debug(self):
+        y = 40
+        for scene in self.scenes:
+            for line in scene.debug:
+                draw_text(line, 10, y, 40, WHITE)
+                y += 40
 
     def get_input(self):
         # Check for fullscreen toggle
@@ -105,6 +114,9 @@ class Game:
         # toggle_borderless_windowed()
 
         while not self.quit:
+            # reset every scene's debug list
+            for scene in self.scenes:
+                scene.debug = []
 
             # process game-wide input
             self.get_input()
@@ -121,6 +133,7 @@ class Game:
             end_mode_3d()
 
             self.scenes_draw_2d()
+
             self.end_frame()
 
             if window_should_close():

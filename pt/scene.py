@@ -6,6 +6,7 @@ class Scene:
 
         self.game = game
         self.camera = game.camera
+        self.debug = []
 
     def top_scene(self) -> bool:
         return self.game.scenes[-1] == self

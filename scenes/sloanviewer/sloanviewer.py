@@ -14,7 +14,8 @@ class SloanViewer(Scene):
         self.last_draw = 0
 
         self.star_positions = []
-        path = os.path.join("scenes", "sloanviewer", "sloandata_out.csv")
+        # path = os.path.join("scenes", "sloanviewer", "sloandata_out.csv")
+        path = os.path.join("scenes", "sloanviewer", "sloandata2_out_clean.csv")
 
         self.star_mesh = gen_mesh_sphere(0.01, 10, 10)
         self.star_model = load_model_from_mesh(self.star_mesh)
@@ -26,25 +27,33 @@ class SloanViewer(Scene):
                     Vector3(float(row["cx"]), float(row["cy"]), float(row["cz"]))
                 )
 
+        self.star_positions.sort(key=lambda x: x.x * x.x + x.y * x.y + x.z * x.z)
+
     def update(self):
+
+        self.debug.append(f"Loaded objects: {len(self.star_positions)}")
+        self.debug.append(f"Drawn objects: {self.last_draw}")
+        # self.debug.append(f"Draw limit: {self.draw_max}")
 
         # rotate camera around the origin by time
         self.camera.position.x = math.sin(time.time()) * 10
         self.camera.position.z = math.cos(time.time()) * 10
 
         # move the camera up and down vertical as well
-        self.camera.position.y = math.sin(time.time() * 0.5) * 10
+        # self.camera.position.y = math.sin(time.time() * 0.5) * 10
+
+        # sort star positions by distance to camera
 
         # check if enter key was just pressed
         if is_key_pressed(KeyboardKey.KEY_ENTER):
             self.draw_max *= 2
 
         if is_key_pressed(KeyboardKey.KEY_EQUAL):
-            # increase every distance to origin by 33%
+            # increase every distance to origin by step_percent
             for pos in self.star_positions:
                 # each pos is a Vector3. increase it's distance to the origin
                 # by step_percent
-                step_percent = 1.10
+                step_percent = 1.5
                 pos.x *= step_percent
                 pos.y *= step_percent
                 pos.z *= step_percent
@@ -57,6 +66,8 @@ class SloanViewer(Scene):
             draw_count += 1
             if draw_count > self.draw_max:
                 break
+
+        draw_model(self.star_model, Vector3(), 1.0, BLUE)
 
         self.last_draw = draw_count
 
