@@ -59,12 +59,19 @@ class StandardCandles(Scene):
 
         print("StandardCandles __init__ complete")
 
+        # make a sphere mesh to hold the cmbr data and texture
+        self.cmbr_mesh = gen_mesh_sphere(1, 10, 10)
+        self.cmbr_model = load_model_from_mesh(self.cmbr_mesh)
+        self.cmbr_texture = load_texture("cmbr.png")
+        self.cmbr_model.set_texture(self.cmbr_texture)
+        self.cmbr_position = Vector3(0, 0, 0)
+        self.cmbr_scale = 1
+
     def update(self):
         pass
 
     def draw_3d(self):
-
-        pass
+        draw_model(self.cmbr_model, self.cmbr_position, self.cmbr_scale)
 
     def draw_2d(self):
         pass
