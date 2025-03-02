@@ -1,3 +1,18 @@
+"""
+
+StandardCandles
+
+This scene is for drawing the "standard candles" of the universe and providing a method
+for the user to interact with them and their relative distance to the earth. The user
+can specify linear, logarithmic, or exponential scales for the distances to crush far objects
+relatively closer into the scene. The user can also specify the color of the stars, and the
+size of the stars.
+
+
+
+
+"""
+
 from pt import *
 
 
