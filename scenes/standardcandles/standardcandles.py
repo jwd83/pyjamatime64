@@ -59,9 +59,6 @@ class StandardCandles(Scene):
 
         print("StandardCandles __init__ complete")
 
-    def __str__(self):
-        pass
-
     def update(self):
         pass
 
