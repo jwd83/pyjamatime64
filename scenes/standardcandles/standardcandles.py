@@ -21,7 +21,7 @@ Data sets:
         Type 1a supernovae
         hubble deep field
         CMBR bubble
-        
+
     Black holes
 
 
@@ -42,6 +42,10 @@ Mouseover:
     Show star color
 
 
+controls are clickable toggle buttons
+
+while holding down left click outside of a button the user can fly the
+camera around with free roam mouse steer and WASD
 
 """
 
