@@ -21,6 +21,9 @@ Data sets:
         Type 1a supernovae
         hubble deep field
         CMBR bubble
+            COBE
+            Wilkinson Microwave Anisotropy Probe
+            Planck
 
     Black holes
 
