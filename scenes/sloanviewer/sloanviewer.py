@@ -38,6 +38,12 @@ class SloanViewer(Scene):
 
         self.debug.append(f"Loaded objects: {len(self.star_positions)}")
         self.debug.append(f"Drawn objects: {self.last_draw}")
+        if self.swap_center:
+            self.debug.append("Swapping center and target")
+        else:
+            self.debug.append("Not swapping center and target")
+
+        self.debug.append(f"Star scale: {self.star_scale}")
         # self.debug.append(f"Draw limit: {self.draw_max}")
 
         # rotate camera around the origin by time
