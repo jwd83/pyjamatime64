@@ -12,6 +12,7 @@ class SloanViewer(Scene):
 
         self.draw_max = 1
         self.last_draw = 0
+        self.star_scale = 1
 
         self.star_positions = []
         # path = os.path.join("scenes", "sloanviewer", "sloandata_out.csv")
@@ -62,6 +63,9 @@ class SloanViewer(Scene):
         if is_key_pressed(KeyboardKey.KEY_ENTER):
             self.draw_max *= 2
 
+        if is_key_pressed(KeyboardKey.KEY_MINUS):
+            self.star_scale *= 0.1
+
         if is_key_pressed(KeyboardKey.KEY_EQUAL):
             # increase every distance to origin by step_percent
             for pos in self.star_positions:
@@ -76,7 +80,7 @@ class SloanViewer(Scene):
 
         draw_count = 0
         for pos in self.star_positions:
-            draw_model(self.star_model, pos, 1, WHITE)
+            draw_model(self.star_model, pos, self.star_scale, WHITE)
             draw_count += 1
             if draw_count > self.draw_max:
                 break
