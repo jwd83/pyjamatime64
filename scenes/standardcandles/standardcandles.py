@@ -54,6 +54,8 @@ camera around with free roam mouse steer and WASD
 
 from pt import *
 
+import os
+
 
 class StandardCandles(Scene):
 
@@ -62,11 +64,13 @@ class StandardCandles(Scene):
 
         print("StandardCandles __init__ complete")
 
-        # make a sphere mesh to hold the cmbr data and texture
-        self.cmbr_mesh = gen_mesh_sphere(1, 10, 10)
+        # make a sphere mesh to hold the cmbr texture
+        self.cmbr_mesh = gen_mesh_sphere(5, 360, 360)
         self.cmbr_model = load_model_from_mesh(self.cmbr_mesh)
-        self.cmbr_texture = load_texture("cmbr.png")
-        self.cmbr_model.set_texture(self.cmbr_texture)
+        self.cmbr_texture = load_texture(os.path.join("assets", "textures", "wmap.png"))
+        set_material_texture(
+            self.cmbr_model.materials[0], rl.MATERIAL_MAP_ALBEDO, self.cmbr_texture
+        )
         self.cmbr_position = Vector3(0, 0, 0)
         self.cmbr_scale = 1
 
@@ -74,7 +78,12 @@ class StandardCandles(Scene):
         pass
 
     def draw_3d(self):
-        draw_model(self.cmbr_model, self.cmbr_position, self.cmbr_scale)
+        draw_model(
+            self.cmbr_model,
+            self.cmbr_position,
+            self.cmbr_scale,
+            Color(255, 255, 255, 128),
+        )
 
     def draw_2d(self):
         pass
