@@ -62,11 +62,14 @@ class SloanViewer(Scene):
 
         draw_count = 0
         for pos in self.star_positions:
+
+            # color the drawn star
             draw_model(self.star_model, pos, 1.0, WHITE)
             draw_count += 1
             if draw_count > self.draw_max:
                 break
 
+        # draw the earth
         draw_model(self.star_model, Vector3(), 1.0, BLUE)
 
         self.last_draw = draw_count
