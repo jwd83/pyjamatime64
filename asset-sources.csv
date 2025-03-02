@@ -1,3 +1,4 @@
 path,source,url1,url2
 assets/textures/cobe.jpg,NASA Public Domain,https://lambda.gsfc.nasa.gov/product/cobe/more_images/cobeslide28.jpg,https://lambda.gsfc.nasa.gov/product/cobe/cobe_image_table.html
 assets/textures/wmap.png,NASA Public Domain,https://map.gsfc.nasa.gov/media/121238/ilc_9yr_moll4096BW.png,https://map.gsfc.nasa.gov/media/121238/index.html
+assets/textures/wmap-sphere.png,NASA Public Domain,https://lambda.gsfc.nasa.gov/product/wmap/dr4/sos/7year/ilc/wmap_ilc_7yr_v4_200uK_RGB_sos.png,https://lambda.gsfc.nasa.gov/product/wmap/dr4/sos/7year/

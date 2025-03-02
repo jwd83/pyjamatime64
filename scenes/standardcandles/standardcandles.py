@@ -67,7 +67,9 @@ class StandardCandles(Scene):
         # make a sphere mesh to hold the cmbr texture
         self.cmbr_mesh = gen_mesh_sphere(5, 360, 360)
         self.cmbr_model = load_model_from_mesh(self.cmbr_mesh)
-        self.cmbr_texture = load_texture(os.path.join("assets", "textures", "wmap.png"))
+        self.cmbr_texture = load_texture(
+            os.path.join("assets", "textures", "wmap-sphere.png")
+        )
         set_material_texture(
             self.cmbr_model.materials[0], rl.MATERIAL_MAP_ALBEDO, self.cmbr_texture
         )
@@ -82,7 +84,7 @@ class StandardCandles(Scene):
             self.cmbr_model,
             self.cmbr_position,
             self.cmbr_scale,
-            Color(255, 255, 255, 128),
+            WHITE,
         )
 
     def draw_2d(self):
