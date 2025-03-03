@@ -67,7 +67,7 @@ class StandardCandles(Scene):
 
         # make a sphere mesh to hold the cmbr texture
         size = 3
-        rings_and_slices = 200
+        rings_and_slices = 20
         self.cmbr_mesh = gen_mesh_sphere(size, rings_and_slices, rings_and_slices)
         self.cmbr_model = load_model_from_mesh(self.cmbr_mesh)
         self.cmbr_texture = load_texture(

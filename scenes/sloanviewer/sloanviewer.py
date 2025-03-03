@@ -15,6 +15,7 @@ class SloanViewer(Scene):
         self.star_scale = 1
 
         self.star_positions = []
+        # sloandata_out.csv
         # path = os.path.join("scenes", "sloanviewer", "sloandata_out.csv")
         path = os.path.join("scenes", "sloanviewer", "sloan-nearby-redshift-out.csv")
 
@@ -32,7 +33,8 @@ class SloanViewer(Scene):
 
         self.target = Vector3()
         self.center = Vector3()
-        self.swap_center = False
+        self.swap_center = True
+        self.pause_rotation = False
 
     def update(self):
 
@@ -47,8 +49,9 @@ class SloanViewer(Scene):
         # self.debug.append(f"Draw limit: {self.draw_max}")
 
         # rotate camera around the origin by time
-        self.target.x = math.sin(time.time()) * 10
-        self.target.z = math.cos(time.time()) * 10
+        if not self.pause_rotation:
+            self.target.x = math.sin(time.time()) * 10
+            self.target.z = math.cos(time.time()) * 10
 
         if self.swap_center:
             self.camera.position = self.target
@@ -69,8 +72,11 @@ class SloanViewer(Scene):
         if is_key_pressed(KeyboardKey.KEY_ENTER):
             self.draw_max *= 2
 
+        if is_key_pressed(KeyboardKey.KEY_P):
+            self.pause_rotation = not self.pause_rotation
+
         if is_key_pressed(KeyboardKey.KEY_MINUS):
-            self.star_scale *= 0.1
+            self.star_scale *= 0.9
 
         if is_key_pressed(KeyboardKey.KEY_EQUAL):
             # increase every distance to origin by step_percent
@@ -88,7 +94,7 @@ class SloanViewer(Scene):
         for pos in self.star_positions:
             draw_model(self.star_model, pos, self.star_scale, WHITE)
             draw_count += 1
-            if draw_count > self.draw_max:
+            if draw_count >= self.draw_max:
                 break
 
         if self.swap_center:
