@@ -8,9 +8,6 @@ class NameMePlease(Scene):
 
         print("NameMePlease __init__ complete")
 
-    def __str__(self):
-        pass
-
     def update(self):
         pass
 
