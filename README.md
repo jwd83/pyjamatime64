@@ -23,3 +23,9 @@ a new file to be filled out by the user.
 ## SloanViewer
 
 * Make ways to color stars.
+
+## StandardCandles
+
+## CMBRDemo
+
+* Show the WMAP CMRB data in 3d space
