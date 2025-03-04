@@ -29,3 +29,7 @@ a new file to be filled out by the user.
 ## CMBRDemo
 
 * Show the WMAP CMRB data in 3d space
+
+## Earth Demo
+
+* Show a blue marble image from NASA mapped in 3d space
