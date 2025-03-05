@@ -2,10 +2,6 @@ from pyray import *
 from raylib import *
 import time
 
-# from scenes.cubedemo import CubeDemo
-
-# from scenes import *
-
 
 class Game:
 
