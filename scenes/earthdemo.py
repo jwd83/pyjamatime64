@@ -9,7 +9,7 @@ class EarthDemo(Scene):
     def __init__(self, game):
         super().__init__(game)
 
-        self.earth = load_model(os.path.join("models", "earth.glb"))
+        self.earth = load_model(os.path.join("assets", "models", "earth.glb"))
         self.earth_position = Vector3(0, 0, 0)
         self.earth_scale = 2.0
         self.earth_color = WHITE

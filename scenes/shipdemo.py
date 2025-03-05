@@ -12,8 +12,7 @@ class ShipDemo(Scene):
 
         # load the ship model
 
-        # ship_model = load_model("models/ship.glb")
-        self.ship = load_model(os.path.join("models", "ship.glb"))
+        self.ship = load_model(os.path.join("assets", "models", "ship.glb"))
         self.ship_position = Vector3(0, 0, 0)
         self.ship_scale = 1.0
         self.ship_color = WHITE

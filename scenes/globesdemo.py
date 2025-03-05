@@ -9,12 +9,12 @@ class GlobesDemo(Scene):
     def __init__(self, game):
         super().__init__(game)
 
-        self.earth = load_model(os.path.join("models", "earth.glb"))
+        self.earth = load_model(os.path.join("assets", "models", "earth.glb"))
         self.earth_position = Vector3(0, 0, 0)
         self.earth_scale = 5.0
         self.earth_color = WHITE
 
-        self.cmbr = load_model(os.path.join("models", "cmbr4.glb"))
+        self.cmbr = load_model(os.path.join("assets", "models", "cmbr4.glb"))
         self.cmbr_position = Vector3(0, 0, 0)
         self.cmbr_scale = 0.1
         self.cmbr_color = Color(255, 255, 255, 96)
