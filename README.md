@@ -10,6 +10,8 @@ a new file to be filled out by the user.
 
 * port over my console from the jack games multicart written in pygame.
 
+* gather local confirmed ra, dec and dist of objects.
+
 ## Classes
 
 ### Game
