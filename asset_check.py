@@ -29,6 +29,10 @@ def main():
     for root, dirs, files in os.walk("assets"):
         for file in files:
             path = os.path.join(root, file)
+
+            # normalize the path
+            path = path.replace("\\", "/")
+
             if path not in asset_sources:
                 missing_sources.append(path)
             else:
