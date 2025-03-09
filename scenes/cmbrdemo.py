@@ -9,7 +9,7 @@ class CMBRDemo(Scene):
     def __init__(self, game):
         super().__init__(game)
 
-        self.cmbr = load_model(os.path.join("assets", "models", "cmbr4.glb"))
+        self.cmbr = load_model(os.path.join("assets", "models", "cmbr.glb"))
         self.cmbr_position = Vector3(0, 0, 0)
         self.cmbr_scale = 2.0
         self.cmbr_color = WHITE

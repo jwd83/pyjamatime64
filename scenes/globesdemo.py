@@ -18,7 +18,7 @@ class GlobesDemo(Scene):
         self.earth_scale = 5.0
         self.earth_color = WHITE
 
-        self.cmbr = load_model(os.path.join("assets", "models", "cmbr4.glb"))
+        self.cmbr = load_model(os.path.join("assets", "models", "cmbr.glb"))
         self.cmbr_position = Vector3(0, 0, 0)
         self.cmbr_scale = 0.1
         self.cmbr_color = Color(255, 255, 255, 16)
