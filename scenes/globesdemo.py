@@ -17,20 +17,25 @@ class GlobesDemo(Scene):
         self.earth_position = Vector3(0, 0, 0)
         self.earth_scale = 5.0
         self.earth_color = WHITE
+        self.earth_visible = True
+
+        self.moon = load_model(os.path.join("assets", "models", "moon.glb"))
+        self.moon_position = Vector3(0, 0, 0)
+        self.moon_scale = 5.0
+        self.moon_color = WHITE
+        self.moon_visible = True
 
         self.cmbr = load_model(os.path.join("assets", "models", "cmbr.glb"))
         self.cmbr_position = Vector3(0, 0, 0)
         self.cmbr_scale = 0.1
         self.cmbr_color = Color(255, 255, 255, 16)
+        self.cmbr_visible = True
 
         self.milky_way = load_model(os.path.join("assets", "models", "milky-way.glb"))
         self.milky_way_position = Vector3(0, 0, 0)
         self.milky_way_scale = 0.1
         self.milky_way_color = Color(255, 255, 255, 220)
-
-        self.draw_cmbr = True
-        self.draw_milky_way = True
-        self.draw_earth = True
+        self.milky_way_visible = True
 
         print("GlobesDemo __init__ complete")
 
@@ -46,13 +51,16 @@ class GlobesDemo(Scene):
     def update_inputs(self):
 
         if is_key_pressed(rl.KEY_E):
-            self.draw_earth = not self.draw_earth
+            self.earth_visible = not self.earth_visible
 
         if is_key_pressed(rl.KEY_C):
-            self.draw_cmbr = not self.draw_cmbr
+            self.cmbr_visible = not self.cmbr_visible
 
         if is_key_pressed(rl.KEY_M):
-            self.draw_milky_way = not self.draw_milky_way
+            self.milky_way_visible = not self.milky_way_visible
+
+        if is_key_pressed(rl.KEY_N):
+            self.moon_visible = not self.moon_visible
 
     def update(self):
         self.update_camera()
@@ -65,19 +73,22 @@ class GlobesDemo(Scene):
         )
 
     def draw_3d(self):
-        if self.draw_earth:
+        if self.earth_visible:
             draw_model(
                 self.earth, self.earth_position, self.earth_scale, self.earth_color
             )
 
-        if self.draw_milky_way:
+        if self.moon_visible:
+            draw_model(self.moon, self.moon_position, self.moon_scale, self.moon_color)
+
+        if self.milky_way_visible:
             draw_model(
                 self.milky_way,
                 self.milky_way_position,
                 self.milky_way_scale,
                 self.milky_way_color,
             )
-        if self.draw_cmbr:
+        if self.cmbr_visible:
             draw_model(self.cmbr, self.cmbr_position, self.cmbr_scale, self.cmbr_color)
 
     def draw_2d(self):
