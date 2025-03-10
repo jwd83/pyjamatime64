@@ -1,3 +1,7 @@
-name,ra,dec,ra.d,dec.d,dist,m.app,m.abs,redshift,color
-Sun,0,0,0,0,0.0000158,-26.74,4.85,0,orange
-Proxima Centauri,14h 29m 43.0s,−62° 40′ 46″,14.495,62.68,0,11.09,15.53,0,white
+system,name,constellation,ra,dec,dist,ra.d,dec.d,m.app,m.abs,redshift,color
+Solar System,Sun,Solar System,0,0,0.0000158,0,0,-26.74,4.85,0,orange
+Alpha Centauri,Proxima Centauri,Centaurus,14h 29m 43.0s,−62° 40′ 46″,4.2465,14.495,62.68,11.09,15.53,0,white
+Barnard's Star ,Barnard's Star ,Ophiuchus,17h 57m 48.5s,+04° 41′ 36″,5.9629,,,,,,
+Alpha Canis Majoris,Sirius ,Canis Major,06h 45m 08.9s,−16° 42′ 58″,8.7094,,,,,,
+Alpha Centauri,Rigil Kentaurus (A)$,Centaurus,,,,,,,,,
+Alpha Centauri,Toliman (B)$,Centaurus,,,,,,,,,
