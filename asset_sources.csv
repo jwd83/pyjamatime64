@@ -9,3 +9,5 @@ assets/models/earth.glb,Self,,
 assets/models/ship.glb,YouTube:RaylibTutorial,,
 assets/textures/lroc_color_poles_2k.tif,NASA Public Domain,https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_poles_2k.tif,https://svs.gsfc.nasa.gov/4720/
 assets/models/moon.glb,Self,,
+assets/data/stellar-neighborhood.csv,Self,,
+assets/textures/sun.tif,NASA Public Domain,https://svs.gsfc.nasa.gov/vis/a030000/a030300/a030362/euvi_aia304_2012_carrington.tif,https://svs.gsfc.nasa.gov/30362
