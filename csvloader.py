@@ -21,7 +21,7 @@ def main():
     print(len(rows))
 
     for row in rows:
-        print(row)
+        print(row["name"])
 
 
 def load_csv(path: str):
