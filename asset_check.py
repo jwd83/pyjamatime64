@@ -16,9 +16,10 @@ assets/textures/wmap-sphere.png,NASA Public Domain,https://lambda.gsfc.nasa.gov/
 
 import csv
 import os
+import sys
 
 
-def main():
+def verify():
     asset_sources = load_asset_sources()
     # print(asset_sources)
     missing_sources = []
@@ -53,6 +54,14 @@ def main():
     print(f"\nSources missing files ({len(missing_files)}):")
     for path in missing_files:
         print(path)
+
+
+def main():
+
+    # check if sort is present
+    
+
+    verify()
 
 
 def load_asset_sources():
