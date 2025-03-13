@@ -18,14 +18,14 @@ def load_csv(path: str, header_row: int = 1) -> list | bool:
 
     rows = []
 
-    # check if the file exists
+    # check if the path exists
     if not os.path.exists(path):
-        print(f"File {path} does not exist.")
+        print(f"Error: Supplied path does not exist: {path}")
         return False
 
-    # check if the file is a file
+    # check if the path is a file
     if not os.path.isfile(path):
-        print(f"{path} is not a file.")
+        print(f"Error: Supplied path is not a file: {path}")
         return False
 
     # open the CSV as a DictReader
@@ -34,6 +34,12 @@ def load_csv(path: str, header_row: int = 1) -> list | bool:
         if header_row > 1:
             for _ in range(header_row - 1):
                 f.readline()
+
+        # check for comment in the expected header row (sloan data has this issue)
+        comment_check_position = f.tell()
+        comment_check = f.readline().strip()
+        if not comment_check.startswith("#"):
+            f.seek(comment_check_position)
 
         reader = csv.DictReader(f)
         for row in reader:
