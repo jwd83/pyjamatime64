@@ -35,11 +35,15 @@ def load_csv(path: str, header_row: int = 1) -> list | bool:
             for _ in range(header_row - 1):
                 f.readline()
 
-        # check for comment in the expected header row (sloan data has this issue)
-        comment_check_position = f.tell()
-        comment_check = f.readline().strip()
-        if not comment_check.startswith("#"):
-            f.seek(comment_check_position)
+        # Check for multiple comment lines
+        while True:
+            comment_check_position = f.tell()
+            comment_check = f.readline().strip()
+            if not comment_check.startswith("#"):
+                f.seek(comment_check_position)
+                break
+            else:
+                print(f"Comment: {comment_check}")
 
         reader = csv.DictReader(f)
         for row in reader:
