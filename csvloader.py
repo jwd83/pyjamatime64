@@ -44,11 +44,19 @@ def load_csv(path: str, header_row: int = 1, skip_comments: bool = True) -> list
                     f.seek(comment_check_position)
                     break
                 else:
-                    print(f"Comment: {comment_check}")
+                    print(f"Header comment: {comment_check}")
 
         reader = csv.DictReader(f)
         for row in reader:
-            rows.append(row)
+            add_row = True
+            for _, value in row.items():
+                first_item = value.strip()
+                if first_item.startswith("#"):
+                    add_row = False
+                    print(f"Data comment: {value}")
+                break
+            if add_row:
+                rows.append(row)
 
     return rows
 

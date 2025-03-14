@@ -1,6 +1,7 @@
 #test comment
 # more test
 system,name,constellation,ra,dec,dist,ra.d,dec.d,m.app,m.abs,redshift,color
+# mid data commet
 Solar System,Sun,Solar System,0,0,0.0000158,0,0,-26.74,4.85,0,orange
 Alpha Centauri,Proxima Centauri,Centaurus,14h 29m 43.0s,−62° 40′ 46″,4.2465,14.495,62.68,11.09,15.53,0,white
 Barnard's Star ,Barnard's Star ,Ophiuchus,17h 57m 48.5s,+04° 41′ 36″,5.9629,,,,,,
