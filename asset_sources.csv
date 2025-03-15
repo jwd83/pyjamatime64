@@ -1,13 +1,16 @@
 path,source,url source,url page
-assets/textures/cobe.jpg,NASA Public Domain,https://lambda.gsfc.nasa.gov/product/cobe/more_images/cobeslide28.jpg,https://lambda.gsfc.nasa.gov/product/cobe/cobe_image_table.html
-assets/textures/wmap.png,NASA Public Domain,https://map.gsfc.nasa.gov/media/121238/ilc_9yr_moll4096BW.png,https://map.gsfc.nasa.gov/media/121238/index.html
-assets/textures/wmap-sphere.png,NASA Public Domain,https://lambda.gsfc.nasa.gov/product/wmap/dr4/sos/7year/ilc/wmap_ilc_7yr_v4_200uK_RGB_sos.png,https://lambda.gsfc.nasa.gov/product/wmap/dr4/sos/7year/
-assets/textures/milky-way-sphere-map.jpg,DeviantArt: hellstormde,,https://www.deviantart.com/hellstormde/art/Milky-Way-Galaxy-Global-Spherical-Map-342068552
-assets/models/milky-way.glb,Self,,
+assets/data/stellar-neighborhood.csv,Self,,
 assets/models/cmbr.glb,Self,,
 assets/models/earth.glb,Self,,
-assets/models/ship.glb,YouTube:RaylibTutorial,,
-assets/textures/lroc_color_poles_2k.tif,NASA Public Domain,https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_poles_2k.tif,https://svs.gsfc.nasa.gov/4720/
+assets/models/mars.glb,Self,,
+assets/models/milky-way.glb,Self,,
 assets/models/moon.glb,Self,,
-assets/data/stellar-neighborhood.csv,Self,,
+assets/models/ship.glb,YouTube:RaylibTutorial,,
+assets/models/sun.glb,Self,,
+assets/textures/cobe.jpg,NASA Public Domain,https://lambda.gsfc.nasa.gov/product/cobe/more_images/cobeslide28.jpg,https://lambda.gsfc.nasa.gov/product/cobe/cobe_image_table.html
+assets/textures/lroc_color_poles_2k.tif,NASA Public Domain,https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_poles_2k.tif,https://svs.gsfc.nasa.gov/4720/
+assets/textures/milky-way-sphere-map.jpg,DeviantArt: hellstormde,,https://www.deviantart.com/hellstormde/art/Milky-Way-Galaxy-Global-Spherical-Map-342068552
 assets/textures/sun.tif,NASA Public Domain,https://svs.gsfc.nasa.gov/vis/a030000/a030300/a030362/euvi_aia304_2012_carrington.tif,https://svs.gsfc.nasa.gov/30362
+assets/textures/wmap-sphere.png,NASA Public Domain,https://lambda.gsfc.nasa.gov/product/wmap/dr4/sos/7year/ilc/wmap_ilc_7yr_v4_200uK_RGB_sos.png,https://lambda.gsfc.nasa.gov/product/wmap/dr4/sos/7year/
+assets/textures/wmap.png,NASA Public Domain,https://map.gsfc.nasa.gov/media/121238/ilc_9yr_moll4096BW.png,https://map.gsfc.nasa.gov/media/121238/index.html
+assets/textures/mars.jpg,NASA Public Domain,https://nasa3d.arc.nasa.gov/download/316/412,https://nasa3d.arc.nasa.gov/detail/mar0kuu2
