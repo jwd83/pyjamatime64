@@ -37,6 +37,8 @@ class Cosmos(Scene):
             "sun": self.prop_eq("name", "Sun", True),
         }
 
+        self.scale_multiplier = 1.0
+
         for row in self.data:
             model = str(row["model"]).strip()
 
@@ -67,11 +69,16 @@ class Cosmos(Scene):
             miles_to_light_minute(float(self.neighborhood["sun"]["diameter"])) / 2
         )
 
+        self.earth_scale = (
+            miles_to_light_minute(float(self.neighborhood["earth"]["diameter"])) / 2
+        )
+
     def update(self):
 
         # rotate camera around the origin by time
         self.camera.position.x = math.sin(time.time()) * 10
         self.camera.position.z = math.cos(time.time()) * 10
+        self.scale_multiplier = min(1.0, math.sin(time.time() / 2) * 250)
 
     def draw_3d(self):
         self.draw_solar_system()
@@ -85,15 +92,18 @@ class Cosmos(Scene):
         draw_model(
             self.models["sun.glb"],
             Vector3(0, 0, 0),
-            self.sun_scale,
+            self.sun_scale * self.scale_multiplier,
             WHITE,
         )
 
-        # draw the earth, moon and mars
         print(light_year_to_light_minute(float(self.neighborhood["earth"]["dist"])))
 
+        # draw the earth
         draw_model(
-            self.models["earth.glb"], self.earth_position_solar_system, 1.0, WHITE
+            self.models["earth.glb"],
+            self.earth_position_solar_system,
+            self.earth_scale * self.scale_multiplier,
+            WHITE,
         )
 
     def draw_2d(self):
