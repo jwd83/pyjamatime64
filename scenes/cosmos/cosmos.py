@@ -94,11 +94,24 @@ class Cosmos(Scene):
             Vector3(self.moon_light_minutes + 0.05, 0.002, 0),
             Vector3(self.moon_light_minutes + 0.02, 0, 0),
             Vector3(self.moon_light_minutes + 0.015, 0, 0),
+            Vector3(self.moon_light_minutes + 0.05, 0.002, 0),
+            Vector3(self.moon_light_minutes, 0.05, 0),
+        ]
+        self.camera_path_target = [
+            Vector3(0, 0, 0),
+            Vector3(0, 0, 0),
+            Vector3(0, 0, 0),
+            Vector3(0, 0, 0),
+            Vector3(0, 0, 0),
+            Vector3(self.moon_light_minutes, 0, 0),
+            Vector3(self.moon_light_minutes, 0, 0),
         ]
 
         self.camera_state = 0
         self.camera_start = self.camera_path[self.camera_state]
         self.camera_destination = self.camera_path[self.camera_state + 1]
+        self.camera_target_start = self.camera_path_target[self.camera_state]
+        self.camera_target_destination = self.camera_path_target[self.camera_state + 1]
 
     def update_camera_path(self):
         # check if the state can be advanced again and return true and do so
@@ -113,6 +126,10 @@ class Cosmos(Scene):
             self.camera_state += 1
             self.camera_start = self.camera_path[self.camera_state]
             self.camera_destination = self.camera_path[self.camera_state + 1]
+            self.camera_target_start = self.camera_path_target[self.camera_state]
+            self.camera_target_destination = self.camera_path_target[
+                self.camera_state + 1
+            ]
             return True
 
     def update(self):
@@ -152,11 +169,27 @@ class Cosmos(Scene):
             + (self.camera_destination.z - self.camera_start.z) * t_smooth,
         )
 
+        # Linear interpolation between start and destination targets using eased value
+        self.camera.target = Vector3(
+            self.camera_target_start.x
+            + (self.camera_target_destination.x - self.camera_target_start.x)
+            * t_smooth,
+            self.camera_target_start.y
+            + (self.camera_target_destination.y - self.camera_target_start.y)
+            * t_smooth,
+            self.camera_target_start.z
+            + (self.camera_target_destination.z - self.camera_target_start.z)
+            * t_smooth,
+        )
+
         self.debug.append(f"t: {t}")
         self.debug.append(f"t_smooth: {t_smooth}")
         self.debug.append(f"elapsed_time: {elapsed_time}")
         self.debug.append(
             f"camera.position: {self.camera.position.x}, {self.camera.position.y}, {self.camera.position.z}"
+        )
+        self.debug.append(
+            f"camera.target: {self.camera.target.x}, {self.camera.target.y}, {self.camera.target.z}"
         )
 
         # Keep camera target at the origin
