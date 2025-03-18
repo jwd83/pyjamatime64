@@ -107,6 +107,11 @@ class Cosmos(Scene):
             Vector3(self.moon_light_minutes, 0, 0),
         ]
 
+        self.camera_position_targets = [
+            (Vector3(14, 0.5, 0), Vector3(0, 0, 0)),
+            (Vector3(self.moon_light_minutes + 0.1, 0.02, 0), Vector3(0, 0, 0)),
+        ]
+
         self.camera_state = 0
         self.camera_start = self.camera_path[self.camera_state]
         self.camera_destination = self.camera_path[self.camera_state + 1]
