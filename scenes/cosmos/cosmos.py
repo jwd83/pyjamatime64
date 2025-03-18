@@ -106,5 +106,8 @@ class Cosmos(Scene):
             WHITE,
         )
 
+        # draw a blue line from the earth to the sun
+        draw_line_3d(self.earth_position_solar_system, Vector3(0, 0, 0), BLUE)
+
     def draw_2d(self):
         pass
