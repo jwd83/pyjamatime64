@@ -67,7 +67,7 @@ class Cosmos(Scene):
         )
         self.earth_position_solar_system = Vector3(self.earth_light_minutes, 0, 0)
         self.moon_light_minutes = light_year_to_light_minute(
-            float(self.neighborhood["mars"]["dist"])
+            float(self.neighborhood["moon"]["dist"])
         )
         self.moon_position_solar_system = Vector3(self.moon_light_minutes, 0, 0)
         self.sun_position_solar_system = Vector3(0, 0, 0)
