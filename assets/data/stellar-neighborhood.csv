@@ -3,7 +3,7 @@ system,name,constellation,ra,dec,dist,ra.d,dec.d,m.app,m.abs,redshift,color,diam
 # the sun
 Solar System,Sun,Solar System,0,0,0,0,0,-26.74,4.85,0,orange,432450,sun.glb
 # the earth
-Solar System,Moon,Solar System,0,0,0.00001584063875223,,,,,,,,moon.glb
+Solar System,Moon,Solar System,0,0,0.00001584063875223,,,,,,,2159.1,moon.glb
 Solar System,Earth,Solar System,0,0,0.0000158,0,0,-3.86,0,0,blue,7926.2,earth.glb
 # nearby planets of our solar system
 Solar System,Mars,Solar System,0,0,0.0000264126,,,,,,red,,
