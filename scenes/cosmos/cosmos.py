@@ -129,10 +129,10 @@ class Cosmos(Scene):
             return True
 
     def update(self):
-        self.update_multilpliers()
+        self.update_multipliers()
         self.update_camera()
 
-    def update_multilpliers(self):
+    def update_multipliers(self):
         self.scale_multiplier = min(1.0, math.sin(time.time() / 2) * 400)
 
     def update_camera(self):
