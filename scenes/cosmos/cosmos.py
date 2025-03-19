@@ -91,16 +91,22 @@ class Cosmos(Scene):
         self.camera_pos_tar = [
             (Vector3(14, 0.5, 0), Vector3(0, 0, 0)),
             (Vector3(self.moon_light_minutes + 0.1, 0.02, 0), Vector3(0, 0, 0)),
-            (Vector3(1, 1, 1), Vector3(2, 2, 2)),
-            (Vector3(self.moon_light_minutes + 0.05, 0.002, 0), Vector3(0, 0, 0)),
-            (Vector3(self.moon_light_minutes + 0.02, 0, 0), Vector3(0, 0, 0)),
+            (Vector3(1, 1, 1), Vector3(0, 0, 0)),
+            (
+                Vector3(self.earth_light_minutes * 0.8, 1, 0),
+                Vector3(self.earth_light_minutes, 0, 0),
+            ),
+            (
+                Vector3(self.earth_light_minutes - 0.1, 0.2, 0),
+                Vector3(self.earth_light_minutes, 0, 0),
+            ),
             (Vector3(self.moon_light_minutes + 0.015, 0, 0), Vector3(0, 0, 0)),
             (
                 Vector3(self.moon_light_minutes + 0.05, 0.002, 0),
                 Vector3(self.moon_light_minutes, 0, 0),
             ),
             (
-                Vector3(self.moon_light_minutes, 0.05, 0),
+                Vector3(self.earth_light_minutes, 1, 0),
                 Vector3(self.moon_light_minutes, 0, 0),
             ),
         ]
@@ -195,7 +201,7 @@ class Cosmos(Scene):
         # )
 
         # Keep camera target at the origin
-        self.camera.target = Vector3(0, 0, 0)
+        # self.camera.target = Vector3(0, 0, 0)
 
     def draw_3d(self):
         self.draw_solar_system()
