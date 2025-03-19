@@ -190,12 +190,20 @@ class Cosmos(Scene):
         self.debug.append(f"t: {t}")
         self.debug.append(f"t_smooth: {t_smooth}")
         self.debug.append(f"elapsed_time: {elapsed_time}")
-        self.debug.append(
-            f"camera.position: {self.camera.position.x}, {self.camera.position.y}, {self.camera.position.z}"
-        )
-        self.debug.append(
-            f"camera.target: {self.camera.target.x}, {self.camera.target.y}, {self.camera.target.z}"
-        )
+        self.debug.append(f"self.camera.position.x: {self.camera.position.x}")
+        self.debug.append(f"self.camera.position.y: {self.camera.position.y}")
+        self.debug.append(f"self.camera.position.z: {self.camera.position.z}")
+
+        self.debug.append(f"camera_target.x: {self.camera.target.x}")
+        self.debug.append(f"camera_target.y: {self.camera.target.y}")
+        self.debug.append(f"camera_target.z: {self.camera.target.z}")
+
+        # self.debug.append(
+        #     f"camera.position: {self.camera.position.x}, {self.camera.position.y}, {self.camera.position.z}"
+        # )
+        # self.debug.append(
+        #     f"camera.target: {self.camera.target.x}, {self.camera.target.y}, {self.camera.target.z}"
+        # )
 
         # Keep camera target at the origin
         self.camera.target = Vector3(0, 0, 0)
