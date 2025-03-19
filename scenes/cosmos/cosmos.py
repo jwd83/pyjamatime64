@@ -193,16 +193,6 @@ class Cosmos(Scene):
         self.debug.append(f"camera_target.y: {self.camera.target.y}")
         self.debug.append(f"camera_target.z: {self.camera.target.z}")
 
-        # self.debug.append(
-        #     f"camera.position: {self.camera.position.x}, {self.camera.position.y}, {self.camera.position.z}"
-        # )
-        # self.debug.append(
-        #     f"camera.target: {self.camera.target.x}, {self.camera.target.y}, {self.camera.target.z}"
-        # )
-
-        # Keep camera target at the origin
-        # self.camera.target = Vector3(0, 0, 0)
-
     def draw_3d(self):
         self.draw_solar_system()
 
@@ -210,7 +200,7 @@ class Cosmos(Scene):
         draw_model(
             self.models["sun.glb"],
             Vector3(0, 0, 0),
-            min(1.0, self.sun_scale * self.scale_multiplier * 20),
+            self.sun_scale * self.scale_multiplier,
             WHITE,
         )
 
@@ -218,7 +208,7 @@ class Cosmos(Scene):
         draw_model(
             self.models["earth.glb"],
             self.earth_position_solar_system,
-            min(1.0, self.earth_scale * self.scale_multiplier * 20),
+            self.earth_scale * self.scale_multiplier,
             WHITE,
         )
 
@@ -226,7 +216,7 @@ class Cosmos(Scene):
         draw_model(
             self.models["moon.glb"],
             self.moon_position_solar_system,
-            min(1.0, self.moon_scale * self.scale_multiplier * 20),
+            self.moon_scale * self.scale_multiplier,
             WHITE,
         )
 
