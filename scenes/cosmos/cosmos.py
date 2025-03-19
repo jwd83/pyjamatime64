@@ -28,7 +28,8 @@ class Cosmos(Scene):
         }
 
         self.scale_multiplier = 1.0
-        self.scaled = False
+        self.scaled = True
+        self.grid = True
 
         # Add camera animation variables
         self.camera_animation_start_time = time.time()
@@ -88,27 +89,46 @@ class Cosmos(Scene):
             miles_to_light_minute(float(self.neighborhood["moon"]["diameter"])) / 2
         )
 
+        sun_pos = Vector3(0, 0, 0)
+        earth_pos = Vector3(self.earth_light_minutes, 0, 0)
+        moon_pos = Vector3(self.moon_light_minutes, 0, 0)
+        elm = self.earth_light_minutes
+        mlm = self.moon_light_minutes
+
         self.camera_pos_tar = [
-            (Vector3(14, 0.5, 0), Vector3(0, 0, 0)),
-            (Vector3(self.moon_light_minutes + 0.1, 0.02, 0), Vector3(0, 0, 0)),
-            (Vector3(1, 1, 1), Vector3(0, 0, 0)),
-            (
-                Vector3(self.earth_light_minutes * 0.8, 1, 0),
-                Vector3(self.earth_light_minutes, 0, 0),
-            ),
-            (
-                Vector3(self.earth_light_minutes - 0.1, 0.2, 0),
-                Vector3(self.earth_light_minutes, 0, 0),
-            ),
-            (Vector3(self.moon_light_minutes + 0.015, 0, 0), Vector3(0, 0, 0)),
-            (
-                Vector3(self.moon_light_minutes + 0.05, 0.002, 0),
-                Vector3(self.moon_light_minutes, 0, 0),
-            ),
-            (
-                Vector3(self.earth_light_minutes, 1, 0),
-                Vector3(self.moon_light_minutes, 0, 0),
-            ),
+            # start looking down on the sun from above
+            (Vector3(0, 5, 0), sun_pos),
+            # shift focus to earth
+            (Vector3(-5, 5, 0), earth_pos),
+            # fly to looking down on earth
+            (Vector3(elm, 0.5, 0), earth_pos),
+            # shift focus to moon
+            (Vector3(elm - 0.5, 0.5, 0), moon_pos),
+            (Vector3(1, 1, 1), sun_pos),
+            (Vector3(8, 1, 1), earth_pos),
+            (Vector3(9, 1, 0), earth_pos),
+            (Vector3(9.5, 0.25, 0), sun_pos),
+            # fly to looking down on moon
+            # (Vector3(mlm, 0.5, 0), moon_pos),
+            # (Vector3(14, 0.5, 0), sun_pos),
+            # (Vector3(mlm + 0.1, 0.02, 0), sun_pos),
+            # (
+            #     Vector3(elm * 0.8, 1, 0),
+            #     Vector3(elm, 0, 0),
+            # ),
+            # (
+            #     Vector3(elm - 0.1, 0.2, 0),
+            #     Vector3(elm, 0, 0),
+            # ),
+            # (Vector3(mlm + 0.015, 0, 0), sun_pos),
+            # (
+            #     Vector3(mlm + 0.05, 0.002, 0),
+            #     Vector3(mlm, 0, 0),
+            # ),
+            # (
+            #     Vector3(elm, 1, 0),
+            #     Vector3(mlm, 0, 0),
+            # ),
         ]
 
         self.camera_state = 0
@@ -135,11 +155,20 @@ class Cosmos(Scene):
             return True
 
     def update(self):
-        self.update_multipliers()
+        self.update_inputs()
         self.update_camera()
 
-    def update_multipliers(self):
-        self.scale_multiplier = min(1.0, math.sin(time.time() / 2) * 400)
+    def update_inputs(self):
+        if is_key_pressed(rl.KEY_G):
+            self.grid = not self.grid
+        if is_key_pressed(rl.KEY_ONE):
+            self.scale_multiplier = 1.0
+
+        if is_key_pressed(rl.KEY_TWO):
+            self.scale_multiplier = 15.0
+
+        if is_key_pressed(rl.KEY_THREE):
+            self.scale_multiplier = 33.0
 
     def update_camera(self):
         # Calculate elapsed time since animation started
@@ -247,14 +276,15 @@ class Cosmos(Scene):
     def draw_solar_system(self):
 
         # draw the grid
-        draw_grid(100, 1)
+        if self.grid:
+            draw_grid(100, 1)
 
         if not self.scaled:
             self.draw_solar_system_real()
         else:
             self.draw_solar_system_scaled()
 
-        # # draw a blue line from the earth to the sun
+        # draw a blue line from the earth to the sun
         # draw_line_3d(self.earth_position_solar_system, Vector3(0, 0, 0), BLUE)
         # draw_line_3d(
         #     self.earth_position_solar_system, self.moon_position_solar_system, RED
