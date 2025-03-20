@@ -25,6 +25,8 @@ class Cosmos(Scene):
             "earth": self.prop_eq("name", "Earth", True),
             "mars": self.prop_eq("name", "Mars", True),
             "sun": self.prop_eq("name", "Sun", True),
+            "venus": self.prop_eq("name", "Venus", True),
+            "jupiter": self.prop_eq("name", "Jupiter", True),
         }
 
         self.scale_multiplier = 1.0
@@ -71,12 +73,17 @@ class Cosmos(Scene):
         self.earth_light_minutes = light_year_to_light_minute(
             float(self.neighborhood["earth"]["dist"])
         )
+        self.venus_light_minutes = light_year_to_light_minute(
+            float(self.neighborhood["venus"]["dist"])
+        )
         self.earth_position_solar_system = Vector3(self.earth_light_minutes, 0, 0)
         self.moon_light_minutes = light_year_to_light_minute(
             float(self.neighborhood["moon"]["dist"])
         )
         self.moon_position_solar_system = Vector3(self.moon_light_minutes, 0, 0)
         self.sun_position_solar_system = Vector3(0, 0, 0)
+        self.venus_position_solar_system = Vector3(self.venus_light_minutes, 0, 0)
+        # scales
         self.sun_scale = (
             miles_to_light_minute(float(self.neighborhood["sun"]["diameter"])) / 2
         )
@@ -87,6 +94,9 @@ class Cosmos(Scene):
 
         self.moon_scale = (
             miles_to_light_minute(float(self.neighborhood["moon"]["diameter"])) / 2
+        )
+        self.venus_scale = (
+            miles_to_light_minute(float(self.neighborhood["venus"]["diameter"])) / 2
         )
 
         sun_pos = Vector3(0, 0, 0)
@@ -150,6 +160,9 @@ class Cosmos(Scene):
         if is_key_pressed(rl.KEY_THREE):
             self.scale_multiplier = 33.0
 
+        if is_key_pressed(rl.KEY_FOUR):
+            self.scale_multiplier = 150.0
+
     def update_camera(self):
         # Calculate elapsed time since animation started
         elapsed_time = time.time() - self.camera_animation_start_time
@@ -190,6 +203,7 @@ class Cosmos(Scene):
             + (self.camera_target_end.z - self.camera_target_start.z) * t_smooth,
         )
 
+        self.debug.append(f"scale: {self.scale_multiplier}")
         self.debug.append(f"camera_state: {self.camera_state}")
         self.debug.append(f"t: {t}")
         self.debug.append(f"t_smooth: {t_smooth}")
@@ -226,6 +240,14 @@ class Cosmos(Scene):
             self.models["moon.glb"],
             self.moon_position_solar_system,
             self.moon_scale * self.scale_multiplier,
+            WHITE,
+        )
+
+        # draw venus
+        draw_model(
+            self.models["venus.glb"],
+            self.venus_position_solar_system,
+            self.venus_scale * self.scale_multiplier,
             WHITE,
         )
 
