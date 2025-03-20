@@ -6,9 +6,9 @@ Solar System,Sun,Solar System,0,0,0,0,0,-26.74,4.85,0,orange,432450,sun.glb
 Solar System,Moon,Solar System,0,0,0.00001584063875223,,,,,,,2159.1,moon.glb
 Solar System,Earth,Solar System,0,0,0.0000158,0,0,-3.86,0,0,blue,7926.2,earth.glb
 # nearby planets of our solar system
-Solar System,Mars,Solar System,0,0,0.0000264126,,,,,,red,,mars.glb
-Solar System,Venus,Solar System,,,0.000011385,,,,,,,,venus.glb
-Solar System,Jupiter,Solar System,,,0.0000823322,,,,,,,,jupiter.glb
+Solar System,Mars,Solar System,0,0,0.0000264126,,,,,,red,4222,mars.glb
+Solar System,Venus,Solar System,,,0.000011385,,,,,,yellow,7520.8,venus.glb
+Solar System,Jupiter,Solar System,,,0.0000823322,,,,,,yellow,86881,jupiter.glb
 # nearby stars
 Alpha Centauri,Proxima Centauri,Centaurus,14h 29m 43.0s,−62° 40′ 46″,4.2465,14.495,62.68,11.09,15.53,0,white,,
 Barnard's Star ,Barnard's Star ,Ophiuchus,17h 57m 48.5s,+04° 41′ 36″,5.9629,,,,,,,,
