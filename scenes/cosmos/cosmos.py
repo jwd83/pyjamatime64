@@ -96,6 +96,7 @@ class Cosmos(Scene):
         mlm = self.moon_light_minutes
 
         self.camera_pos_tar = [
+            (Vector3(2, 2, 0), sun_pos),
             # start looking down on the sun from above
             (Vector3(0, 5, 0), sun_pos),
             # shift focus to earth
