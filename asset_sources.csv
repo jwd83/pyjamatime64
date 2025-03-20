@@ -2,6 +2,7 @@ path,source,url source,url page
 assets/data/stellar-neighborhood.csv,Self,,
 assets/models/cmbr.glb,Self,,
 assets/models/earth.glb,Self,,
+assets/models/jupiter.glb,Self,,
 assets/models/mars.glb,Self,,
 assets/models/milky-way.glb,Self,,
 assets/models/moon.glb,Self,,
