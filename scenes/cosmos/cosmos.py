@@ -109,27 +109,6 @@ class Cosmos(Scene):
             (Vector3(8, 1, 1), earth_pos),
             (Vector3(9, 1, 0), earth_pos),
             (Vector3(9.5, 0.25, 0), sun_pos),
-            # fly to looking down on moon
-            # (Vector3(mlm, 0.5, 0), moon_pos),
-            # (Vector3(14, 0.5, 0), sun_pos),
-            # (Vector3(mlm + 0.1, 0.02, 0), sun_pos),
-            # (
-            #     Vector3(elm * 0.8, 1, 0),
-            #     Vector3(elm, 0, 0),
-            # ),
-            # (
-            #     Vector3(elm - 0.1, 0.2, 0),
-            #     Vector3(elm, 0, 0),
-            # ),
-            # (Vector3(mlm + 0.015, 0, 0), sun_pos),
-            # (
-            #     Vector3(mlm + 0.05, 0.002, 0),
-            #     Vector3(mlm, 0, 0),
-            # ),
-            # (
-            #     Vector3(elm, 1, 0),
-            #     Vector3(mlm, 0, 0),
-            # ),
         ]
 
         self.camera_state = 0
