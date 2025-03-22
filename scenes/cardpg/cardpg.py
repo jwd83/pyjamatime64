@@ -1,35 +1,5 @@
 from pt import *
 
-"""
-
-
-# classes
-
-
-# buffs and debuffs falls off 1 stack per round
-
-FIGHTER
-cecil harvey
-kain highwind
-
-MAGE
-rydia
-tellah
-
-CLERIC
-rosa
-aerith
-yuna
-
-
-engineer
-cid highwind
-edge geraldine
-setzer
-
-
-"""
-
 
 class CardPG(Scene):
 
