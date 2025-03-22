@@ -5,7 +5,10 @@ a rogue-like card game with voxel models
 
 # GENERAL
 
-buffs and debuffs falls off 1 stack per round
+* buffs and debuffs falls off 1 stack per round
+* hero base stats
+  * base hp: 75
+  * energy per turn (3)
 
 # CLASSES
 
@@ -13,22 +16,25 @@ archetype (inspiration)
 
 ## FIGHTER
 
-* monk (sabin)
+* knight (steiner/ff1 fighter/warrior of light)
+* monk (sabin/tifa)
 * dragoon (kain highwind)
+* samurai (cyan)
 
-MAGE
+## MAGE
 
+* black mage (vivi)
 * summoner (rydia)
 * sage (tellah)
 
-CLERIC
+## CLERIC
 
 * white mage (rosa)
-* aerith
-* yuna
+* cleric (aerith)
 * bard (edward)
+* astrologian
 
-ENGINEER
+## ENGINEER
 
 * rocket scientist (cid highwind)
 * Gambler (setzer)
@@ -38,3 +44,4 @@ ENGINEER
 
 * paladin[fighter/cleric] (cecil)
 * dark knight[fighter/mage] (golbez)
+* hexblade [cleric/mage]
