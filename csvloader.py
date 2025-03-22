@@ -1,3 +1,8 @@
+# this program reads a CSV file with comments and returns
+# a list of dictionaries with the data using the first
+# non-comment row as the header row
+
+
 import csv
 import os
 import sys
