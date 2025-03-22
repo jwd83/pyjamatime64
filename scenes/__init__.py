@@ -6,3 +6,4 @@ from .shipdemo import ShipDemo
 from .cmbrdemo import CMBRDemo
 from .earthdemo import EarthDemo
 from .globesdemo import GlobesDemo
+from .kartracer.kartracer import KartRacer
