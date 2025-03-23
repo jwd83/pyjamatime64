@@ -18,7 +18,7 @@ class Cosmos(Scene):
     def __init__(self, game):
         super().__init__(game)
 
-        self.data = load_csv("assets/data/stellar-neighborhood.csv")
+        self.data = pcsv.load("assets/data/stellar-neighborhood.csv")
         self.models = {}
         self.neighborhood = {
             "moon": self.prop_eq("name", "Moon", True),
@@ -56,13 +56,11 @@ class Cosmos(Scene):
         print("Cosmos __init__ complete")
 
     def prop_eq(self, property, value, limit_1: bool = False):
-        results = []
-        for row in self.data:
-            if row[property] == value:
-                if limit_1:
-                    return row
-                else:
-                    results.append(row)
+
+        if limit_1:
+            results = pcsv.prop_eq(self.data, property, value, 1)
+        else:
+            results = pcsv.prop_eq(self.data, property, value)
 
         return results
 

@@ -4,7 +4,9 @@
         "cmbr",
         "ddec",
         "odec",
+        "pcsv",
         "pyray",
+        "raylib",
         "renderobject"
     ]
 }
