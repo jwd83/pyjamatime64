@@ -1,5 +1,6 @@
 path,source,url source,url page
 assets/data/stellar-neighborhood.csv,Self,,
+assets/data/torque-curves.csv,Self,,
 assets/models/cmbr.glb,Self,,
 assets/models/earth.glb,Self,,
 assets/models/jupiter.glb,Self,,
@@ -9,6 +10,7 @@ assets/models/moon.glb,Self,,
 assets/models/notes.md,Self,,
 assets/models/ship.glb,YouTube:RaylibTutorial,,
 assets/models/sun.glb,Self,,
+assets/models/vehicle-speedster.glb,Kenney.nl,https://kenney.nl/assets/toy-car-kit,
 assets/models/venus.glb,Self,,
 assets/textures/cobe.jpg,NASA Public Domain,https://lambda.gsfc.nasa.gov/product/cobe/more_images/cobeslide28.jpg,https://lambda.gsfc.nasa.gov/product/cobe/cobe_image_table.html
 assets/textures/jupiter.jpg,NASA Public Domain,https://nasa3d.arc.nasa.gov/download/303/388,https://nasa3d.arc.nasa.gov/detail/jup0vss1
