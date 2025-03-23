@@ -25,7 +25,7 @@ archetype (inspiration)
 
 * black mage (vivi)
 * summoner (rydia)
-* sage (tellah)
+* sage (tellah/strago)
 
 ## CLERIC
 
@@ -45,3 +45,8 @@ archetype (inspiration)
 * paladin[fighter/cleric] (cecil)
 * dark knight[fighter/mage] (golbez)
 * hexblade [cleric/mage]
+
+# CARD TYPES
+
+* sunken (placed on bottom of deck)
+* sealed (usable once)
