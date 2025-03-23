@@ -32,7 +32,7 @@ archetype (inspiration)
 * white mage (rosa)
 * cleric (aerith)
 * bard (edward)
-* astrologian (shuffle garbage into top of monster decks)
+* astrologian (shuffle garbage onto top of monster decks)
 
 ## ENGINEER
 
