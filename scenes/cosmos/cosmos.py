@@ -219,7 +219,11 @@ class Cosmos(Scene):
     def draw_3d(self):
         self.draw_solar_system()
 
-    def draw_solar_system_scaled(self):
+    def draw_solar_system(self):
+
+        if self.grid:
+            draw_grid(100, 1)
+
         draw_model(
             self.models["sun.glb"],
             Vector3(0, 0, 0),
@@ -227,7 +231,6 @@ class Cosmos(Scene):
             WHITE,
         )
 
-        # draw the earth
         draw_model(
             self.models["earth.glb"],
             self.earth_position_solar_system,
@@ -235,7 +238,6 @@ class Cosmos(Scene):
             WHITE,
         )
 
-        # draw the moon
         draw_model(
             self.models["moon.glb"],
             self.moon_position_solar_system,
@@ -243,54 +245,12 @@ class Cosmos(Scene):
             WHITE,
         )
 
-        # draw venus
         draw_model(
             self.models["venus.glb"],
             self.venus_position_solar_system,
             self.venus_scale * self.scale_multiplier,
             WHITE,
         )
-
-    def draw_solar_system_real(self):
-        draw_model(
-            self.models["sun.glb"],
-            self.sun_position_solar_system,
-            self.sun_scale,
-            WHITE,
-        )
-
-        # draw the earth
-        draw_model(
-            self.models["earth.glb"],
-            self.earth_position_solar_system,
-            self.earth_scale,
-            WHITE,
-        )
-
-        # draw the moon
-        draw_model(
-            self.models["moon.glb"],
-            self.moon_position_solar_system,
-            self.moon_scale,
-            WHITE,
-        )
-
-    def draw_solar_system(self):
-
-        # draw the grid
-        if self.grid:
-            draw_grid(100, 1)
-
-        if not self.scaled:
-            self.draw_solar_system_real()
-        else:
-            self.draw_solar_system_scaled()
-
-        # draw a blue line from the earth to the sun
-        # draw_line_3d(self.earth_position_solar_system, Vector3(0, 0, 0), BLUE)
-        # draw_line_3d(
-        #     self.earth_position_solar_system, self.moon_position_solar_system, RED
-        # )
 
     def draw_2d(self):
         pass
