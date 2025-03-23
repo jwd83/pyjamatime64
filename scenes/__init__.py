@@ -1,3 +1,5 @@
+from .dragster.dragster import Dragster
+from .kartracer.kartracer import KartRacer
 from .sloanviewer.sloanviewer import SloanViewer
 from .standardcandles.standardcandles import StandardCandles
 from .cosmos.cosmos import Cosmos
@@ -6,4 +8,3 @@ from .shipdemo import ShipDemo
 from .cmbrdemo import CMBRDemo
 from .earthdemo import EarthDemo
 from .globesdemo import GlobesDemo
-from .kartracer.kartracer import KartRacer

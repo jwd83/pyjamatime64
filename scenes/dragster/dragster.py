@@ -7,6 +7,9 @@ class Dragster(Scene):
         super().__init__(game)
 
         engines = pcsv.load("assets/data/torque-curves.csv")
+        print(f"Number of engines: {len(engines)}")
+        for engine in engines:
+            print(f"Engine: {engine}")
 
         print("Dragster __init__ complete")
 
