@@ -5,6 +5,12 @@ class Dragster(Scene):
 
     def __init__(self, game):
         super().__init__(game)
+        self.engines = []
+        self.load_engines()
+
+        print("Dragster __init__ complete")
+
+    def load_engines(self):
 
         self.engines = pcsv.load("assets/data/torque-curves.csv")
         print(f"Number of engines: {len(self.engines)}")
@@ -41,6 +47,9 @@ class Dragster(Scene):
                     else:
                         look = False
 
+                    if rpm >= 20000:
+                        look = False
+
                     rpm += 500
 
             engine["max_hp"] = max_hp
@@ -53,8 +62,6 @@ class Dragster(Scene):
             print(f"Max Torque: {int(max_torque)} @ {max_torque_rpm} RPM")
             print(f"Max HP:     {int(max_hp)} @ {max_hp_rpm} RPM")
             print(f"Max RPM:    {int(max_rpm)}")
-
-        print("Dragster __init__ complete")
 
     def update(self):
         pass
