@@ -96,6 +96,8 @@ class Dragster(Scene):
             red,
         )
 
+        pr.draw_text(str(rpm), 190, 200, 20, pr.VIOLET)
+
         # draw_rectangle(0, 0, 800, 600, Color(0, 100, 0, 255))
         print("Draw 2D")
         pass
