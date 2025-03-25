@@ -64,6 +64,7 @@ class Dragster(Scene):
             print(f"Max RPM:    {int(max_rpm)}")
 
     def update(self):
+
         pass
 
     def draw_3d(self):
@@ -71,4 +72,37 @@ class Dragster(Scene):
         pass
 
     def draw_2d(self):
+        w = get_screen_width()
+        h = get_screen_height()
+        gray = Color(120, 120, 120, 255)
+        red = Color(255, 0, 0, 255)
+        rpm = 800
+        redline = 10000
+        rpm_progress = rpm / redline
+
+        draw_rectangle(
+            int(0.2 * w),
+            int(0.8 * h),
+            int(0.6 * w),
+            int(h * 0.2),
+            gray,
+        )
+
+        draw_rectangle(
+            int(0.2 * w),
+            int(0.8 * h),
+            int(0.6 * w * rpm_progress),
+            int(h * 0.2),
+            red,
+        )
+
+        # draw_rectangle(0, 0, 800, 600, Color(0, 100, 0, 255))
+        print("Draw 2D")
+        pass
+
+
+class Engine:
+    def __init__(self):
+        self.rpm = 0
+
         pass
