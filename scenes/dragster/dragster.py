@@ -29,7 +29,7 @@ class Engine:
 
     def power(self, rpm: float, tps: float = 1.00) -> float:
         power = 0.0
-        if rpm > 0:
+        if rpm > 0 and rpm <= self.max_rpm:
             for i in range(1, len(self.torque_curve)):
                 if self.torque_curve[i - 1][0] < rpm and rpm <= self.torque_curve[i][0]:
                     x1 = self.torque_curve[i - 1][0]
