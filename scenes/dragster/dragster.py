@@ -1,4 +1,5 @@
 from pt import *
+import math
 
 
 class Engine:
@@ -90,7 +91,7 @@ class Transmission:
         if self.gear == -1:
             return input_rpm / (self.reverse_gear * self.final_drive)
 
-        return input_rpm * self.forward_gears[self.gear - 1] * self.final_drive
+        return input_rpm / (self.forward_gears[self.gear - 1] * self.final_drive)
 
     def input_rpm(self, output_rpm: float) -> float:
         self.validate_gear()
@@ -99,14 +100,25 @@ class Transmission:
 
 
 class Vehicle:
-    def __init__(self, engine_data: dict):
+    def __init__(self, engine_data: dict, tire_diameter_in: float = 23.0):
         self.engine = Engine(engine_data)
         self.transmission = Transmission(
             final_drive=4.3,
             forward_gears=[4.3, 3.587, 2.022, 1.384, 1.0, 0.861],
             reverse_gear=-4,
         )
-        self.tire_diameter = 23.0
+        self.tire_diameter_in = tire_diameter_in
+        self.tire_circumference = math.pi * tire_diameter_in  # pi * d (aka 2*pi*r)
+
+    def speed(self) -> float:
+        output_rpm = self.transmission.output_rpm(self.engine.rpm)
+        # convert revolutions per minute to revolutions per hour
+        rph = output_rpm * 60.0
+        # 1 rev = 1 circumference in inches
+        # 1 mile = 5280 feet = 63360 inches
+
+        total_distance = rph * self.tire_circumference
+        return total_distance / 63360.0
 
 
 class Dragster(Scene):
@@ -179,7 +191,10 @@ class Dragster(Scene):
             print(f"Max RPM:    {int(max_rpm)}")
 
     def update(self):
-
+        self.vehicle.engine.rpm += self.game.dt * 200
+        self.vehicle.engine.rpm = min(
+            self.vehicle.engine.rpm, self.vehicle.engine.max_rpm
+        )
         pass
 
     def draw_3d(self):
@@ -193,6 +208,9 @@ class Dragster(Scene):
         red = Color(255, 0, 0, 255)
         rpm = self.vehicle.engine.rpm
         redline = self.vehicle.engine.max_rpm
+        power = self.vehicle.engine.power(rpm, 1.0)
+        output_rpm = self.vehicle.transmission.output_rpm(rpm)
+        speed = self.vehicle.speed()
         rpm_progress = rpm / redline
 
         draw_rectangle(
@@ -211,4 +229,7 @@ class Dragster(Scene):
             red,
         )
 
-        pr.draw_text(str(rpm), 190, 200, 20, pr.VIOLET)
+        pr.draw_text(f"{rpm:.2f} rpm", 190, 200, 20, pr.VIOLET)
+        pr.draw_text(f"{power:.2f} hp", 190, 220, 20, pr.VIOLET)
+        pr.draw_text(f"{output_rpm:.2f} rpm", 190, 240, 20, pr.VIOLET)
+        pr.draw_text(f"{speed:.2f} mph", 190, 260, 20, pr.VIOLET)
