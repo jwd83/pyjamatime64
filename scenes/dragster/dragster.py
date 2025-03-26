@@ -27,7 +27,7 @@ class Engine:
         self.rpm: float = self.idle_rpm
         self.throttle: float = 0.0
 
-    def power(self, rpm: float) -> float:
+    def power(self, rpm: float, tps: float = 1.00) -> float:
         power = 0.0
         if rpm > 0:
             for i in range(1, len(self.torque_curve)):
@@ -40,7 +40,7 @@ class Engine:
                     slope = (y2 - y1) / (x2 - x1)
                     intercept = y1 - slope * x1
                     torque = slope * rpm + intercept
-                    power = torque * rpm / 5252.0
+                    power = (torque * rpm / 5252.0) * tps
 
                     print(f"RPM: {rpm} Torque: {torque} Power: {power}")
                     break
