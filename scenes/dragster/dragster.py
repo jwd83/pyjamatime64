@@ -5,17 +5,19 @@ import math
 class Engine:
     def __init__(self, engine_data: dict):
         print("---creating engine---")
-        self.name: str = engine_data["name"]
+        self.data: dict = engine_data.copy()
+        self.name: str = self.data["name"]
 
-        self.max_hp: float = float(engine_data["max_hp"])
-        self.max_hp_rpm: float = float(engine_data["max_hp_rpm"])
-        self.max_torque: float = float(engine_data["max_torque"])
-        self.max_torque_rpm: float = float(engine_data["max_torque_rpm"])
-        self.max_rpm: float = float(engine_data["max_rpm"])
-        self.boost_limit: float = float(engine_data["boost-limit"])
-        self.idle_rpm: float = float(engine_data["idle"])
+        self.rotational_mass: float = float(self.data["rotational_mass"])
+        self.max_hp: float = float(self.data["max_hp"])
+        self.max_hp_rpm: float = float(self.data["max_hp_rpm"])
+        self.max_torque: float = float(self.data["max_torque"])
+        self.max_torque_rpm: float = float(self.data["max_torque_rpm"])
+        self.max_rpm: float = float(self.data["max_rpm"])
+        self.boost_limit: float = float(self.data["boost-limit"])
+        self.idle_rpm: float = float(self.data["idle"])
 
-        self.torque_curve = engine_data["torque_curve"].copy()
+        self.torque_curve = self.data["torque_curve"].copy()
 
         print(f"Engine: {self.name}")
         print(f"Max Torque: {int(self.max_torque)} @ {self.max_torque_rpm} RPM")
@@ -100,7 +102,12 @@ class Transmission:
 
 
 class Vehicle:
-    def __init__(self, engine_data: dict, tire_diameter_in: float = 23.0):
+    def __init__(
+        self,
+        engine_data: dict,
+        tire_diameter_in: float = 23.0,
+        weight_lbs: float = 1950.0,
+    ):
         self.engine = Engine(engine_data)
         self.transmission = Transmission(
             final_drive=4.3,
@@ -109,6 +116,13 @@ class Vehicle:
         )
         self.tire_diameter_in = tire_diameter_in
         self.tire_circumference = math.pi * tire_diameter_in  # pi * d (aka 2*pi*r)
+        self.weight_lbs = weight_lbs
+        self.tps = 0.0
+        self.drag = 0.1
+        self.clutch_engagement = 0.0
+
+    def update(self, dt: float):
+        pass
 
     def speed(self) -> float:
         output_rpm = self.transmission.output_rpm(self.engine.rpm)
