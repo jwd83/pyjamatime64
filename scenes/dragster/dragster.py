@@ -121,8 +121,20 @@ class Vehicle:
         self.drag = 0.1
         self.clutch_engagement = 0.0
 
+    def update_tps(self, dt: float):
+
+        multiplier = 1.5
+
+        if is_key_down(rl.KEY_DOWN):
+            self.tps = self.tps + dt * multiplier
+        else:
+            self.tps = self.tps - dt * multiplier
+
+        self.tps = constrain(self.tps, 0.0, 1.0)
+
     def update(self, dt: float):
-        pass
+        if is_key_down(rl.KEY_UP):
+            self.tps = min(self.tps + dt, 1.0)
 
     def speed(self) -> float:
         output_rpm = self.transmission.output_rpm(self.engine.rpm)
