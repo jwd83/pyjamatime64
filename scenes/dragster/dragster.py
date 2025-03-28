@@ -8,7 +8,7 @@ class Engine:
         self.data: dict = engine_data.copy()
         self.name: str = self.data["name"]
 
-        self.rotational_mass: float = float(self.data["rotational_mass"])
+        self.rotational_mass: float = float(self.data["rotational-mass"])
         self.max_hp: float = float(self.data["max_hp"])
         self.max_hp_rpm: float = float(self.data["max_hp_rpm"])
         self.max_torque: float = float(self.data["max_torque"])
@@ -45,7 +45,7 @@ class Engine:
                     torque = slope * rpm + intercept
                     power = (torque * rpm / 5252.0) * tps
 
-                    print(f"RPM: {rpm} Torque: {torque} Power: {power}")
+                    # print(f"RPM: {rpm} Torque: {torque} Power: {power}")
                     break
 
         return power
@@ -125,16 +125,15 @@ class Vehicle:
 
         multiplier = 1.5
 
-        if is_key_down(rl.KEY_DOWN):
-            self.tps = self.tps + dt * multiplier
+        if is_key_down(rl.KEY_UP):
+            self.tps = self.tps + dt * multiplier * 2
         else:
-            self.tps = self.tps - dt * multiplier
+            self.tps = self.tps - dt * multiplier * 3
 
         self.tps = constrain(self.tps, 0.0, 1.0)
 
     def update(self, dt: float):
-        if is_key_down(rl.KEY_UP):
-            self.tps = min(self.tps + dt, 1.0)
+        self.update_tps(dt)
 
     def speed(self) -> float:
         output_rpm = self.transmission.output_rpm(self.engine.rpm)
@@ -217,11 +216,12 @@ class Dragster(Scene):
             print(f"Max RPM:    {int(max_rpm)}")
 
     def update(self):
-        self.vehicle.engine.rpm += self.game.dt * 200
-        self.vehicle.engine.rpm = min(
-            self.vehicle.engine.rpm, self.vehicle.engine.max_rpm
-        )
-        pass
+        # self.vehicle.engine.rpm += self.game.dt * 200
+        # self.vehicle.engine.rpm = min(
+        #     self.vehicle.engine.rpm, self.vehicle.engine.max_rpm
+        # )
+        # pass
+        self.vehicle.update(self.game.dt)
 
     def draw_3d(self):
 
@@ -232,6 +232,7 @@ class Dragster(Scene):
         h = get_screen_height()
         gray = Color(120, 120, 120, 255)
         red = Color(255, 0, 0, 255)
+        green = Color(0, 255, 0, 255)
         rpm = self.vehicle.engine.rpm
         redline = self.vehicle.engine.max_rpm
         power = self.vehicle.engine.power(rpm, 1.0)
@@ -239,23 +240,72 @@ class Dragster(Scene):
         speed = self.vehicle.speed()
         rpm_progress = rpm / redline
 
-        draw_rectangle(
-            int(0.2 * w),
-            int(0.8 * h),
-            int(0.6 * w),
-            int(h * 0.2),
-            gray,
-        )
-
-        draw_rectangle(
-            int(0.2 * w),
-            int(0.8 * h),
-            int(0.6 * w * rpm_progress),
-            int(h * 0.2),
-            red,
-        )
+        self.draw_progress_bar(0.2, 0.9, 0.6, 0.1, gray, red, rpm_progress, "RPM")
+        self.draw_progress_bar(0.2, 0.8, 0.6, 0.1, gray, green, self.vehicle.tps, "TPS")
+        self.draw_gauge(0.15, 0.85, 0.05, rl.WHITE, rl.GREEN, self.vehicle.tps)
 
         pr.draw_text(f"{rpm:.2f} rpm", 190, 200, 20, pr.VIOLET)
         pr.draw_text(f"{power:.2f} hp", 190, 220, 20, pr.VIOLET)
         pr.draw_text(f"{output_rpm:.2f} rpm", 190, 240, 20, pr.VIOLET)
         pr.draw_text(f"{speed:.2f} mph", 190, 260, 20, pr.VIOLET)
+
+    def draw_progress_bar(
+        self,
+        x_pct: float,
+        y_pct: float,
+        w_pct: float,
+        h_pct: float,
+        bg_color: Color,
+        fg_color: Color,
+        progress: float,
+        label: str = "",
+    ):
+        w = get_screen_width()
+        h = get_screen_height()
+        x = int(x_pct * w)
+        y = int(y_pct * h)
+        w = int(w_pct * w)
+        h = int(h_pct * h)
+        w_fg = int(w * progress)
+
+        draw_rectangle(x, y, w, h, bg_color)
+        draw_rectangle(x, y, w_fg, h, fg_color)
+        draw_text(
+            label,
+            x + int(w / 2),
+            y + int(h / 2),
+            20,
+            Color(255, 255, 255, 255),
+        )
+
+    def draw_gauge(
+        self,
+        x_pct: float,
+        y_pct: float,
+        r_pct: float,
+        bg_color: Color = rl.WHITE,
+        fg_color: Color = rl.RED,
+        progress: float = 0.0,
+    ):
+        w = get_screen_width()
+        h = get_screen_height()
+        x = int(x_pct * w)
+        y = int(y_pct * h)
+        r = int(r_pct * w / 2)
+
+        draw_circle(x, y, r, bg_color)
+
+        # convert progress to needle angle
+        angle = math.radians(progress * 270.0 - 90)
+
+        x2 = int(x - r * math.cos(angle))
+        y2 = int(y - r * math.sin(angle))
+
+        draw_line(x, y, x2, y2, fg_color)
+        draw_line(x + 1, y, x2, y2, fg_color)
+        draw_line(x, y + 1, x2, y2, fg_color)
+        draw_line(x - 1, y, x2, y2, fg_color)
+        draw_line(x, y - 1, x2, y2, fg_color)
+
+        # draw circle at end of needle
+        draw_circle(x, y, 4, rl.RED)
