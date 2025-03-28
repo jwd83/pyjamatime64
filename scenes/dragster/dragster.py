@@ -100,6 +100,15 @@ class Transmission:
         if self.gear == 0:
             return 0.0
 
+    def torque_multiplier(self) -> float:
+        if self.gear == 0:
+            return 0.0
+
+        if self.gear == -1:
+            return self.reverse_gear * self.final_drive
+
+        return self.forward_gears[self.gear - 1] * self.final_drive
+
 
 class Vehicle:
     def __init__(
@@ -153,7 +162,17 @@ class Vehicle:
             rpm_after_shift = self.transmission.output_rpm(self.engine.rpm)
 
     def update_speed(self, dt: float):
-        pass
+
+        if self.tps <= 0:
+            self.engine.rpm *= 1 - dt
+            self.engine.rpm = max(self.engine.rpm, self.engine.idle_rpm)
+
+        tm = self.transmission.torque_multiplier()
+        weight = self.weight_lbs
+        power = self.engine.power(self.engine.rpm, self.tps)
+
+        accel = ((tm * power) / weight) * dt * 50000
+        self.engine.rpm += accel
 
     def speed(self) -> float:
         output_rpm = self.transmission.output_rpm(self.engine.rpm)
@@ -264,6 +283,9 @@ class Dragster(Scene):
     def draw_2d(self):
         w = get_screen_width()
         h = get_screen_height()
+
+        weight = self.vehicle.weight_lbs
+        tm = self.vehicle.transmission.torque_multiplier()
         gray = Color(120, 120, 120, 255)
         red = Color(255, 0, 0, 255)
         green = Color(0, 255, 0, 255)
@@ -284,6 +306,8 @@ class Dragster(Scene):
         pr.draw_text(f"{power:.2f} hp", 190, 220, 20, pr.VIOLET)
         pr.draw_text(f"{output_rpm:.2f} rpm", 190, 240, 20, pr.VIOLET)
         pr.draw_text(f"{speed:.2f} mph", 190, 260, 20, pr.VIOLET)
+        pr.draw_text(f"{tm:.2f} torque multiplier", 190, 280, 20, pr.VIOLET)
+        pr.draw_text(f"{weight:.2f} lbs", 190, 300, 20, pr.VIOLET)
 
     def draw_progress_bar(
         self,
