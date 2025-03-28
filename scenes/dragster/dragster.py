@@ -134,6 +134,26 @@ class Vehicle:
 
     def update(self, dt: float):
         self.update_tps(dt)
+        self.update_speed(dt)
+
+    def update_gear(self):
+        shift = False
+        speed_before_shift = self.speed()
+        if is_key_pressed(rl.KEY_RIGHT):
+            if self.transmission.gear < len(self.transmission.forward_gears):
+                shift = True
+                self.transmission.select_gear(self.transmission.gear + 1)
+
+        elif is_key_pressed(rl.KEY_LEFT):
+            if self.transmission.gear > -1:
+                shift = True
+                self.transmission.select_gear(self.transmission.gear - 1)
+
+        if shift:
+            rpm_after_shift = self.transmission.output_rpm(self.engine.rpm)
+
+    def update_speed(self, dt: float):
+        pass
 
     def speed(self) -> float:
         output_rpm = self.transmission.output_rpm(self.engine.rpm)
@@ -144,6 +164,20 @@ class Vehicle:
 
         total_distance = rph * self.tire_circumference
         return total_distance / 63360.0
+
+    def speed_to_input_rpm(self, speed: float) -> float:
+        # convert mph to inches per hour
+        iph = speed * 5280 * 12
+
+        # convert inches per hour to inches per minute
+        ipm = iph / 60.0
+
+        # convert inches per minute to revolutions per minute
+        # 1 revolution = tire circumference in inches
+
+        rpm = ipm / self.tire_circumference
+
+        return rpm
 
 
 class Dragster(Scene):
