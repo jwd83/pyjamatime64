@@ -241,6 +241,8 @@ class Dragster(Scene):
         rpm_progress = rpm / redline
 
         self.draw_progress_bar(0.2, 0.9, 0.6, 0.1, gray, red, rpm_progress, "RPM")
+        self.draw_gauge(0.15, 0.95, 0.05, rl.WHITE, rl.RED, rpm_progress)
+
         self.draw_progress_bar(0.2, 0.8, 0.6, 0.1, gray, green, self.vehicle.tps, "TPS")
         self.draw_gauge(0.15, 0.85, 0.05, rl.WHITE, rl.GREEN, self.vehicle.tps)
 
@@ -301,11 +303,30 @@ class Dragster(Scene):
         x2 = int(x - r * math.cos(angle))
         y2 = int(y - r * math.sin(angle))
 
-        draw_line(x, y, x2, y2, fg_color)
-        draw_line(x + 1, y, x2, y2, fg_color)
-        draw_line(x, y + 1, x2, y2, fg_color)
-        draw_line(x - 1, y, x2, y2, fg_color)
-        draw_line(x, y - 1, x2, y2, fg_color)
+        tri_radius = 3
 
+        tri_x1 = int(x + tri_radius * math.cos(angle + math.radians(90)))
+        tri_y1 = int(y + tri_radius * math.sin(angle + math.radians(90)))
+
+        tri_x2 = int(x + tri_radius * math.cos(angle - math.radians(90)))
+        tri_y2 = int(y + tri_radius * math.sin(angle - math.radians(90)))
+        draw_triangle(
+            (x2, y2),
+            (tri_x1, tri_y1),
+            (tri_x2, tri_y2),
+            fg_color,
+        )
+        # draw_line(x, y, x2, y2, fg_color)
+        # draw_line(x + 1, y, x2, y2, fg_color)
+        # draw_line(x, y + 1, x2, y2, fg_color)
+        # draw_line(x - 1, y, x2, y2, fg_color)
+        # draw_line(x, y - 1, x2, y2, fg_color)
+
+        # draw_triangle(
+        #     (x, y),
+        #     (x2, y2),
+        #     (x + 1, y),
+        #     fg_color,
+        # )
         # draw circle at end of needle
         draw_circle(x, y, 4, rl.RED)
