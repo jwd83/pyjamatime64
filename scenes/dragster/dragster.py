@@ -109,6 +109,10 @@ class Transmission:
 
         return self.forward_gears[self.gear - 1] * self.final_drive
 
+    def max_gearing(self) -> float:
+        top_gear_ratio = self.forward_gears[-1] * self.final_drive
+        return top_gear_ratio
+
 
 class Vehicle:
     def __init__(
@@ -129,6 +133,8 @@ class Vehicle:
         self.tps = 0.0
         self.drag = 0.1
         self.clutch_engagement = 0.0
+        self.max_speed: float = 0.0
+        self.update_max_speed()
 
     def update_tps(self, dt: float):
 
@@ -171,7 +177,7 @@ class Vehicle:
         weight = self.weight_lbs
         power = self.engine.power(self.engine.rpm, self.tps)
 
-        accel = ((tm * power) / weight) * dt * 50000
+        accel = ((tm * power) / weight) * dt * 30000
         self.engine.rpm += accel
 
     def speed(self) -> float:
@@ -183,6 +189,15 @@ class Vehicle:
 
         total_distance = rph * self.tire_circumference
         return total_distance / 63360.0
+
+    def update_max_speed(self):
+        gearing = self.transmission.max_gearing()
+        max_erpm = self.engine.max_rpm
+        max_orpm = max_erpm / gearing
+        max_orph = max_orpm * 60.0
+        max_distance = max_orph * self.tire_circumference
+        max_speed = max_distance / 63360.0
+        self.max_speed = max_speed
 
     def speed_to_input_rpm(self, speed: float) -> float:
         # convert mph to inches per hour
@@ -289,11 +304,15 @@ class Dragster(Scene):
         gray = Color(120, 120, 120, 255)
         red = Color(255, 0, 0, 255)
         green = Color(0, 255, 0, 255)
+        blue = Color(0, 0, 255, 255)
         rpm = self.vehicle.engine.rpm
         redline = self.vehicle.engine.max_rpm
         power = self.vehicle.engine.power(rpm, 1.0)
         output_rpm = self.vehicle.transmission.output_rpm(rpm)
         speed = self.vehicle.speed()
+        max_speed = self.vehicle.max_speed
+        speed_progress = speed / max_speed
+
         rpm_progress = rpm / redline
 
         self.draw_progress_bar(0.2, 0.9, 0.6, 0.1, gray, red, rpm_progress, "RPM")
@@ -302,12 +321,16 @@ class Dragster(Scene):
         self.draw_progress_bar(0.2, 0.8, 0.6, 0.1, gray, green, self.vehicle.tps, "TPS")
         self.draw_gauge(0.15, 0.85, 0.05, rl.WHITE, rl.GREEN, self.vehicle.tps)
 
+        self.draw_progress_bar(0.2, 0.7, 0.6, 0.1, gray, blue, speed_progress, "Speed")
+        self.draw_gauge(0.15, 0.75, 0.05, rl.WHITE, rl.BLUE, speed_progress)
+
         pr.draw_text(f"{rpm:.2f} rpm", 190, 200, 20, pr.VIOLET)
         pr.draw_text(f"{power:.2f} hp", 190, 220, 20, pr.VIOLET)
         pr.draw_text(f"{output_rpm:.2f} rpm", 190, 240, 20, pr.VIOLET)
         pr.draw_text(f"{speed:.2f} mph", 190, 260, 20, pr.VIOLET)
         pr.draw_text(f"{tm:.2f} torque multiplier", 190, 280, 20, pr.VIOLET)
         pr.draw_text(f"{weight:.2f} lbs", 190, 300, 20, pr.VIOLET)
+        pr.draw_text(f"{self.vehicle.max_speed:.2f} in", 190, 320, 20, pr.VIOLET)
 
     def draw_progress_bar(
         self,
