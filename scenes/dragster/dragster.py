@@ -347,6 +347,8 @@ class Dragster(Scene):
         self.draw_progress_bar(0.2, 0.7, 0.6, 0.1, gray, blue, speed_progress, "Speed")
         self.draw_gauge(0.15, 0.75, 0.05, rl.WHITE, rl.BLUE, speed_progress)
 
+        self.draw_torque_curve(0.2, 0.9, 0.6, 0.1, blue)
+
         pr.draw_text(f"{rpm:.2f} rpm", 190, 200, 20, pr.VIOLET)
         pr.draw_text(f"{power:.2f} hp", 190, 220, 20, pr.VIOLET)
         pr.draw_text(f"{output_rpm:.2f} rpm", 190, 240, 20, pr.VIOLET)
@@ -354,6 +356,51 @@ class Dragster(Scene):
         pr.draw_text(f"{tm:.2f} torque multiplier", 190, 280, 20, pr.VIOLET)
         pr.draw_text(f"{weight:.2f} lbs", 190, 300, 20, pr.VIOLET)
         pr.draw_text(f"{self.vehicle.max_speed:.2f} in", 190, 320, 20, pr.VIOLET)
+
+    def draw_torque_curve(
+        self, x_pct: float, y_pct: float, w_pct: float, h_pct: float, color: Color
+    ):
+        w = get_screen_width()
+        h = get_screen_height()
+        x = int(x_pct * w)
+        y = int(y_pct * h)
+        w = int(w_pct * w)
+        h = int(h_pct * h)
+
+        # draw the torque curve as a line graph
+        # with the x-axis as RPM and the y-axis as Torque
+        # scale the graph to fit the provided x,y, w, h
+
+        # find the limits of the torque curve
+        max_rpm = 0
+        max_torque = 0
+
+        for tc in self.vehicle.engine.torque_curve:
+            if tc[0] > max_rpm:
+                max_rpm = tc[0]
+            if tc[1] > max_torque:
+                max_torque = tc[1]
+
+        # plot the torque curve in the rectangle
+
+        last_point = None
+
+        for tc in self.vehicle.engine.torque_curve:
+            rpm = tc[0]
+            torque = tc[1]
+
+            # scale the rpm and torque to fit the rectangle
+            x = int(x_pct * w + (rpm / max_rpm) * w)
+            y = int(y_pct * h + (1 - (torque / max_torque)) * h)
+
+            # draw a point on the graph
+            draw_circle(x, y, 2, color)
+
+            if last_point is not None:
+                # draw a line from the last point to this point
+                draw_line(last_point[0], last_point[1], x, y, color)
+
+            last_point = (x, y)
 
     def draw_progress_bar(
         self,
