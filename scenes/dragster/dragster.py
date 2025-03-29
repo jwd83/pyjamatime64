@@ -100,6 +100,11 @@ class Transmission:
         if self.gear == 0:
             return 0.0
 
+        if self.gear == -1:
+            return output_rpm * (self.reverse_gear * self.final_drive)
+
+        return output_rpm * (self.forward_gears[self.gear - 1] * self.final_drive)
+
     def torque_multiplier(self) -> float:
         if self.gear == 0:
             return 0.0
@@ -131,7 +136,7 @@ class Vehicle:
         self.tire_circumference = math.pi * tire_diameter_in  # pi * d (aka 2*pi*r)
         self.weight_lbs = weight_lbs
         self.tps = 0.0
-        self.drag = 0.1
+        self.drag = 0.4  # road car = ~0.3, f1 car = 0.8
         self.clutch_engagement = 0.0
         self.max_speed: float = 0.0
         self.update_max_speed()
@@ -148,12 +153,15 @@ class Vehicle:
         self.tps = constrain(self.tps, 0.0, 1.0)
 
     def update(self, dt: float):
+        self.update_gear()
         self.update_tps(dt)
         self.update_speed(dt)
 
     def update_gear(self):
         shift = False
         speed_before_shift = self.speed()
+        output_rpm_before_shift = self.transmission.output_rpm(self.engine.rpm)
+
         if is_key_pressed(rl.KEY_RIGHT):
             if self.transmission.gear < len(self.transmission.forward_gears):
                 shift = True
@@ -165,20 +173,35 @@ class Vehicle:
                 self.transmission.select_gear(self.transmission.gear - 1)
 
         if shift:
-            rpm_after_shift = self.transmission.output_rpm(self.engine.rpm)
+            if self.transmission.gear > 0:
+
+                input_rpm_after_shift = self.transmission.input_rpm(
+                    output_rpm_before_shift
+                )
+                self.engine.rpm = input_rpm_after_shift
 
     def update_speed(self, dt: float):
-
+        # Engine braking when throttle is off
         if self.tps <= 0:
             self.engine.rpm *= 1 - dt
             self.engine.rpm = max(self.engine.rpm, self.engine.idle_rpm)
 
+        # Calculate current speed
+        current_speed = self.speed()
+
+        # Calculate acceleration from engine power
         tm = self.transmission.torque_multiplier()
         weight = self.weight_lbs
         power = self.engine.power(self.engine.rpm, self.tps)
+        power_accel = (tm * power) / weight
 
-        accel = ((tm * power) / weight) * dt * 30000
-        self.engine.rpm += accel
+        # Calculate deceleration from aerodynamic drag
+        drag_decel = self.drag * current_speed * current_speed
+        drag_decel *= 0.000019
+
+        power_dif = power_accel - drag_decel
+        print(f"accel: {power_accel:.2f} decel: {drag_decel:.2f}, dif: {power_dif:.2f}")
+        self.engine.rpm += power_dif * dt * 10000.0
 
     def speed(self) -> float:
         output_rpm = self.transmission.output_rpm(self.engine.rpm)
