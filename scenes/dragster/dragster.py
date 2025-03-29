@@ -397,17 +397,5 @@ class Dragster(Scene):
             (tri_x2, tri_y2),
             fg_color,
         )
-        # draw_line(x, y, x2, y2, fg_color)
-        # draw_line(x + 1, y, x2, y2, fg_color)
-        # draw_line(x, y + 1, x2, y2, fg_color)
-        # draw_line(x - 1, y, x2, y2, fg_color)
-        # draw_line(x, y - 1, x2, y2, fg_color)
 
-        # draw_triangle(
-        #     (x, y),
-        #     (x2, y2),
-        #     (x + 1, y),
-        #     fg_color,
-        # )
-        # draw circle at end of needle
         draw_circle(x, y, 4, rl.RED)
