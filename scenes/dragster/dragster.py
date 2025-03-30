@@ -194,14 +194,16 @@ class Vehicle:
         current_speed = self.speed()
 
         # Calculate acceleration from engine power
+        p_scale = 1500
         tm = self.transmission.torque_multiplier()
         weight = self.weight_lbs
         power = self.engine.power(self.engine.rpm, self.tps)
-        power_accel = (tm * power) / weight
+        power_accel = (tm * power) / weight * dt
+        power_accel *= p_scale
 
         # Calculate deceleration from aerodynamic drag
-        drag_decel = self.drag * current_speed * current_speed
-        drag_decel *= 0.000019
+        drag_decel = self.drag * current_speed * current_speed * dt
+        # drag_decel *= 0.000019
 
         power_dif = power_accel - drag_decel
         print(f"accel: {power_accel:.2f} decel: {drag_decel:.2f}, dif: {power_dif:.2f}")
