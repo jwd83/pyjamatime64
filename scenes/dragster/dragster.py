@@ -181,10 +181,14 @@ class Vehicle:
                 self.engine.rpm = input_rpm_after_shift
 
     def update_speed(self, dt: float):
+
         # Engine braking when throttle is off
-        if self.tps <= 0:
-            self.engine.rpm *= 1 - dt
-            self.engine.rpm = max(self.engine.rpm, self.engine.idle_rpm)
+        # if self.tps <= 0:
+        #     self.engine.rpm *= 1 - dt
+        #     self.engine.rpm = max(self.engine.rpm, self.engine.idle_rpm)
+
+        if self.engine.rpm < self.engine.idle_rpm:
+            self.engine.rpm = self.engine.idle_rpm
 
         # Calculate current speed
         current_speed = self.speed()
