@@ -202,7 +202,9 @@ class Vehicle:
         power_accel *= p_scale
 
         # Calculate deceleration from aerodynamic drag
-        drag_decel = self.drag * current_speed * current_speed * dt
+        drag_decel = self.drag * current_speed * current_speed
+        drag_decel *= 0.000019
+
         # drag_decel *= 0.000019
 
         power_dif = power_accel - drag_decel
