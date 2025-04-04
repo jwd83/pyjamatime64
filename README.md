@@ -4,6 +4,8 @@ A 3D python game engine built with Raylib
 
 ## Todos
 
+* rewrite dragster using my pygame code 
+
 * catalog local star system data
 
 * write a function to check assets and models on startup for attribution
